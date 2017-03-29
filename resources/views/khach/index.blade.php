@@ -1,5 +1,6 @@
 @extends('khach_home')
 
+
 @section('noidung')
 <div class="panel-TrangChu text-center">
 		<h1>WELCOME TO TERRACOTTA HOTEL & RESORT</h1>
@@ -12,7 +13,7 @@
 		<div class="container">
 			<!-- Panel standard room -->
 			<div class="col-sm-6 col-md-4">
-			    <div class="panel-LoaiPhong">
+			    <div class="panel-GioiThieuPhong">
 			      	<img src="{{ asset('public/img/room/standard1.jpg') }}" alt="">
 			        <h3 class="text-LoaiPhong">Phòng Standard</h3>
 			        <table class="table-LoaiPhong">
@@ -43,7 +44,7 @@
 			</div>
 			<!-- Panel superior room -->
 			<div class="col-sm-6 col-md-4">
-			    <div class="panel-LoaiPhong">
+			    <div class="panel-GioiThieuPhong">
 			      	<img src="{{ asset('public/img/room/superior1.jpg') }}" alt="">
 			        <h3 class="text-LoaiPhong">Phòng Superior</h3>
 			        <table class="table-LoaiPhong">
@@ -75,7 +76,7 @@
 			</div>
 			<!-- Panel deluxe room -->
 			<div class="col-sm-6 col-md-4">
-			    <div class="panel-LoaiPhong">
+			    <div class="panel-GioiThieuPhong">
 			      	<img src="{{ asset('public/img/room/deluxe1.jpg') }}" alt="">
 			        <h3 class="text-LoaiPhong">Phòng Deluxe</h3>
 			        <table class="table-LoaiPhong">
@@ -107,7 +108,7 @@
 		</div>
 		<div class="container" style="margin-top: 25px">
 			<div class="col-sm-6 col-md-4 col-md-offset-2">
-			    <div class="panel-LoaiPhong">
+			    <div class="panel-GioiThieuPhong">
 			      	<img src="{{ asset('public/img/room/premium1.jpg') }}" alt="">
 
 
@@ -140,7 +141,7 @@
 				</div>
 			</div>
 			<div class="col-sm-6 col-md-4 ">
-			    <div class="panel-LoaiPhong">
+			    <div class="panel-GioiThieuPhong">
 			      	<img src="{{ asset('public/img/room/junior1.jpg') }}" alt="">
 			        <h3 class="text-LoaiPhong">Phòng Junior - Villa</h3>
 			        <table class="table-LoaiPhong">
@@ -178,16 +179,16 @@
 	<div class="text-GioiThieu panel-TrangChu text-center">
 		<h2>Hình Ảnh</h2>
 	</div>
-	<div class="col-md-8 col-md-offset-2" style="margin-bottom: 10px">
-		<div id="Carousel_1" class="carousel slide">
-			<ol class="carousel-indicators" style="display: inline-block;"> 
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li> 
-				<li data-target="#myCarousel" data-slide-to="1"></li> 
-				<li data-target="#myCarousel" data-slide-to="2"></li> 
-				<li data-target="#myCarousel" data-slide-to="3"></li> 
-				<li data-target="#myCarousel" data-slide-to="4"></li> 
-				<li data-target="#myCarousel" data-slide-to="5"></li> 
-				<li data-target="#myCarousel" data-slide-to="6"></li> 
+	<div class="col-md-8 col-md-offset-2">
+		<div id="CarouselBot" class="carousel slide">
+			<ol class="carousel-indicators" > 
+				<li data-target="#CarouselBot" data-slide-to="0" class="active"></li> 
+				<li data-target="#CarouselBot" data-slide-to="1"></li> 
+				<li data-target="#CarouselBot" data-slide-to="2"></li> 
+				<li data-target="#CarouselBot" data-slide-to="3"></li> 
+				<li data-target="#CarouselBot" data-slide-to="4"></li> 
+				<li data-target="#CarouselBot" data-slide-to="5"></li> 
+				<li data-target="#CarouselBot" data-slide-to="6"></li> 
 
 
 			</ol>
@@ -217,14 +218,22 @@
 
 
 			</div>
-			<a class="left carousel-control" href="#Carousel_1" role="button" data-slide="prev">
+			<a class="left carousel-control" href="#CarouselBot" role="button" data-slide="prev">
 				<span class="icon-prev" aria-hidden="true"></span>
 				<span class="sr-only">Previous</span>
 			</a>
-			<a class="right carousel-control" href="#Carousel_1" role="button" data-slide="next">
+			<a class="right carousel-control" href="#CarouselBot" role="button" data-slide="next">
 				<span class="icon-next" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
 			</a> 
 		</div>
 	</div>
+@stop
+
+@section('script')
+	<script>
+		$('#CarouselBot').carousel({ 
+	        interval:   4000    
+	    });
+	</script>
 @stop

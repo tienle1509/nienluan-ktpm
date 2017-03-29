@@ -26,3 +26,6 @@
 		</div>
 	</div>
 @stop
+
+@section('script')
+@stop

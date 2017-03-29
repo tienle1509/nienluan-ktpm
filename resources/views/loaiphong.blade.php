@@ -16,20 +16,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <style>
-	.table-LoaiPhong th{
-	
-		min-width: 110px;
-		font-weight: normal;
-
-	}
-	.table-LoaiPhong {
-		margin: 10px;
-	}
-	.table-LoaiPhong td{
-		min-width: 200px
-	}
-</style>
   <body>
 
 	<div>
@@ -76,15 +62,8 @@
 
 	<!-- sideshow -->
   	<div id="slideshowBG">
-	    <div id="myCarousel" class="carousel slide">
-	      <ol class="carousel-indicators"> 
-	           <li data-target="#myCarousel" data-slide-to="0" class="active"></li> 
-	           <li data-target="#myCarousel" data-slide-to="1"></li> 
-	           <li data-target="#myCarousel" data-slide-to="2"></li> 
-	           <li data-target="#myCarousel" data-slide-to="3"></li> 
-
-	        </ol>
-	      
+	    <div id="CarouselTop" class="carousel slide">
+      
 	      <div class="carousel-inner"> 
 	          <figure class="item active">
 	              <img src="{{ asset('public/img/background/background1.jpg') }}" alt="panner1" width="100%">
@@ -102,7 +81,7 @@
 	       </div> 
 	    </div>
   	</div> 
-  	<div class="panel-TrangChu text-center container-fluid" style="  background-color: #2a2c2b; color: #e4d295">
+  	<div class="panel-TrangChu text-center container-fluid" style=" background-color: #2a2c2b; color: #e4d295">
 		<h2>Terracotta Đà Lạt</h2>
 		<p>
 		 Một trong những điểm đến lý tưởng dành cho những ai yêu thích thiên nhiên và mong muốn tìm một nơi nghỉ dưỡng đẳng cấp đúng nghĩa.
@@ -181,13 +160,10 @@
 		});
 
 		// sideshow  
-		$('#myCarousel').carousel({ 
+		$('#CarouselTop').carousel({ 
 	        interval:   4000    
 	    });
-	    $('#Carousel_1').carousel({ 
-	        interval:   4000    
-	    });
-	    $('#Carousel_2').carousel({ 
+	    $('#CarouselRoom').carousel({ 
 	        interval:   4000    
 	    });
 	    //tooltip

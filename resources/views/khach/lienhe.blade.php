@@ -71,9 +71,31 @@
 	
 	<div class="clearfix"></div>
 
-	<div class="col-md-10 col-md-offset-1 text-center" style="margin-bottom: 20px">	    
+	<div class="col-md-10 col-md-offset-1 text-center" >	    
 	    <div style='overflow:hidden; '>
 	    	<div id='gmap_canvas' style="height:500px"></div>
 	    </div> 
 	</div>
+
+@stop
+
+@section('script')
+	<!-- google map -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7F_WMqCzQysd4z2hIVQTFh25N04WfhUU&callback=init_map"
+  	type="text/javascript"></script>
+	<script type='text/javascript'>
+    	function init_map(){
+    		var myOptions = {
+    			zoom:13,
+    			center:new google.maps.LatLng(11.89424,108.43811099999994),
+    			mapTypeId: google.maps.MapTypeId.ROADMAP
+    		};
+			map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+			marker = new google.maps.Marker({
+				map: map,position: new google.maps.LatLng(11.89424,108.43811099999994)
+			});
+			infowindow = new google.maps.InfoWindow({content:'<strong>Terracotta Hotel & Resort Dalat</strong><br>Terracotta hotel & resort Dalat<br>'});
+			google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});
+			infowindow.open(map,marker);}
+    </script>
 @stop
