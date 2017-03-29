@@ -6,9 +6,7 @@
 		<h1>WELCOME TO TERRACOTTA HOTEL & RESORT</h1>
 		<p>Ẩn mình bên bờ hồ Tuyền Lâm cùng với dịch vụ đẳng cấp 4 sao, Terracotta Đà Lạt là một trong những điểm đến lý tưởng dành cho những ai yêu thích thiên nhiên và mong muốn tìm đến những nơi nghỉ dưỡng đẳng cấp đúng nghĩa.</p>
 	</div> <!-- end giới thiệu -->
-
 	<div class="clearfix"></div>
-
 	<div class="">
 		<div class="container">
 			<!-- Panel standard room -->
@@ -19,27 +17,42 @@
 			        <table class="table-LoaiPhong">
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Kích thước 
 							</th>
-							<td>35 m<sup>2</sup></td>								
+							<td>							
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('dientich')->where('tenlp','Standard')->first();                     
+									echo $kq->dientich . " m<sup>2</sup>";
+								?>	
+							</td>							
 						</tr>							
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Sức chứa
 							</th>
-							<td>3 khách</td>
+							<td>
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('succhua')->where('tenlp','Standard')->first();                        
+									echo $kq->succhua . " khách</sup>";
+								?>	
+							</td>
 						</tr>
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Giường
 							</th>
-							<td>2 giường đơn</td>
+							<td>
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('giuong')->where('tenlp','Standard')->first();                        
+									echo $kq->giuong;
+								?>	
+							</td>
 						</tr>
 					</table>
-			        <p><a href="room_standard.htm" class="btn btn-info btn-md" role="button">Chi Tiết</a></p>
+			        <p><a href="{{ asset('standard')}}" class="btn btn-info btn-md" role="button">Chi Tiết</a></p>
 				</div>
 			</div>
 			<!-- Panel superior room -->
@@ -50,27 +63,42 @@
 			        <table class="table-LoaiPhong">
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Kích thước 
 							</th>
-							<td>35 m<sup>2</sup></td>								
+							<td>							
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('dientich')->where('tenlp','Superior')->first();                     
+									echo $kq->dientich . " m<sup>2</sup>";
+								?>	
+							</td>							
 						</tr>							
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Sức chứa
 							</th>
-							<td>3 khách</td>
+							<td>
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('succhua')->where('tenlp','Superior')->first();                        
+									echo $kq->succhua . " khách</sup>";
+								?>	
+							</td>
 						</tr>
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Giường
 							</th>
-							<td>1 giường đôi hoặc 2 giường đơn</td>
+							<td>
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('giuong')->where('tenlp','Superior')->first();                        
+									echo $kq->giuong;
+								?>	
+							</td>
 						</tr>
 					</table>
-			        <p><a href="room_superior.htm" class="btn btn-info btn-md" role="button">Chi Tiết</a></p>
+			        <p><a href="{{ asset('superior')}}" class="btn btn-info btn-md" role="button">Chi Tiết</a></p>
 
 				</div>
 			</div>
@@ -82,27 +110,42 @@
 			        <table class="table-LoaiPhong">
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Kích thước 
 							</th>
-							<td>50 m<sup>2</sup></td>								
+							<td>							
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('dientich')->where('tenlp','Deluxe')->first();                     
+									echo $kq->dientich . " m<sup>2</sup>";
+								?>	
+							</td>							
 						</tr>							
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Sức chứa
 							</th>
-							<td>3 khách</td>
+							<td>
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('succhua')->where('tenlp','Deluxe')->first();                        
+									echo $kq->succhua . " khách</sup>";
+								?>	
+							</td>
 						</tr>
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Giường
 							</th>
-							<td>1 giường đôi hoặc 2 giường đơn</td>
+							<td>
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('giuong')->where('tenlp','Deluxe')->first();                        
+									echo $kq->giuong;
+								?>	
+							</td>
 						</tr>
 					</table>
-					<p><a href="room_deluxe.htm" class="btn btn-info btn-md text-center" role="button">Chi Tiết</a></p>
+					<p><a href="{{ asset('deluxe')}}" class="btn btn-info btn-md text-center" role="button">Chi Tiết</a></p>
 				</div>
 			</div>
 		</div>
@@ -116,27 +159,42 @@
 			        <table class="table-LoaiPhong">
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Kích thước 
 							</th>
-							<td>40 m<sup>2</sup></td>								
+							<td>							
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('dientich')->where('tenlp','Premium-Villa')->first();                     
+									echo $kq->dientich . " m<sup>2</sup>";
+								?>	
+							</td>							
 						</tr>							
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Sức chứa
 							</th>
-							<td>2 khách</td>
+							<td>
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('succhua')->where('tenlp','Premium-Villa')->first();                        
+									echo $kq->succhua . " khách</sup>";
+								?>	
+							</td>
 						</tr>
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Giường
 							</th>
-							<td>1 giường đôi hoặc 2 giường đơn</td>
+							<td>
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('giuong')->where('tenlp','Premium-Villa')->first();                        
+									echo $kq->giuong;
+								?>	
+							</td>
 						</tr>
 					</table>
-			        <p><a href="room_premium.htm" class="btn btn-info" role="button">Chi Tiết</a></p>
+			        <p><a href="{{ asset('premium')}}" class="btn btn-info" role="button">Chi Tiết</a></p>
 
 				</div>
 			</div>
@@ -147,27 +205,42 @@
 			        <table class="table-LoaiPhong">
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Kích thước 
 							</th>
-							<td>50 m<sup>2</sup></td>								
+							<td>							
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('dientich')->where('tenlp','Junior-Villa')->first();                     
+									echo $kq->dientich . " m<sup>2</sup>";
+								?>	
+							</td>							
 						</tr>							
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Sức chứa
 							</th>
-							<td>2 khách</td>
+							<td>
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('succhua')->where('tenlp','Junior-Villa')->first();                        
+									echo $kq->succhua . " khách</sup>";
+								?>	
+							</td>
 						</tr>
 						<tr>
 							<th>
-								<i class="glyphicon glyphicon-menu-right" style="color: green;"></i>
+								<i class="glyphicon glyphicon-menu-right"></i>
 								Giường
 							</th>
-							<td>1 giường đôi</td>
+							<td>
+								<?php														
+	                                $kq = DB::table('loai_phong')->select('giuong')->where('tenlp','Junior-Villa')->first();                        
+									echo $kq->giuong;
+								?>	
+							</td>
 						</tr>
 					</table>
-			        <p><a href="room_junior.htm" class="btn btn-info" role="button">Chi Tiết</a></p>
+			        <p><a href="{{ asset('junior')}}" class="btn btn-info" role="button">Chi Tiết</a></p>
 
 				</div>
 			</div>

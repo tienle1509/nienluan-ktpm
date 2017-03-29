@@ -89,8 +89,74 @@
 	</div>
 
  
-  	@yield('noidung')
+  	
 	
+	<div class="panel-ChiTietPhong container-fluid" >
+		<div class="row">
+			<div class="col-md-5 ">
+				@yield('CarouselRoom')	
+			</div>
+
+			<div class="col-md-7">
+				@yield('RoomDetails')
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+
+		<div class="row">
+			<div class="col-md-5">
+				<div class="pull-right">
+					<h1 style="color: #dc3522" class="text-right">
+						<?php
+							echo number_format($room->dongia) . " VND";
+						?>	
+					</h1>
+					<br>
+
+				</div>
+			</div>
+			<div class="col-md-7">
+				<br>
+				<div class="text-center" style="color: gray">
+					<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="Wifi miễn phí">				
+						<i class="fa fa-wifi fa-2x" ></i>
+
+					</div>
+					<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="TV LED">
+						<i class="fa fa-television fa-2x"></i>				
+					</div>
+					<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="Bồn Tắm">
+						<i class="fa fa-bath fa-2x"></i>	
+					</div>
+					<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" data-html="true"
+						title="Tủ lạnh/minibar <br> 
+								TV màn hình LED <br> 
+								Chìa khóa phòng điện tử <br> 
+								Két sắt an toàn điện tử <br> 
+								Dụng cụ pha trà, cà phê <br> 
+								Máy sấy tóc" >	
+						<i class="fa fa-bars fa-2x"></i>			
+					</div>							
+				</div>		
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				<div class="pull-right">
+					<button type="button" class="btn btn-outline btn-DatPhong "
+					style="width: 290px">Đặt Phòng</button>
+				</div>	
+			</div>
+		</div>
+		
+	</div>
+
+
+
+
+
+
 
 	<div class="clearfix"></div>
 	
