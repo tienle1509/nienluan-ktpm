@@ -4,11 +4,38 @@
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--	<link rel="stylesheet prefetch" href="{{ asset('public/css/datepicker.css') }}"> -->
 	<link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css') }}" >
 	<link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('public/font-awesome/css/font-awesome.min.css') }}">
 	<link rel="icon" href="{{ asset('public/img/icon.png') }}">
+
+
+	<!-- datepicker -->
+  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+
+	<script>
+		// sideshow  
+	    $('#CarouselTop').carousel({ 
+	        interval:   4000    
+	    });
+	    // datepicker
+		$(function () {
+		  $("#txtNgayDen").datepicker({ 
+		  		dateFormat : "dd-mm-yy",
+		        minDate: 0, 
+		  });
+		  $("#txtNgayDi").datepicker({
+		  		dateFormat : "dd-mm-yy", 
+		  		minDate : "txtNgayDen.value"
+		  });
+		});
+	</script>
+
 
 	
 
@@ -17,6 +44,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
   </head>
 
   <body>
@@ -98,17 +126,17 @@
 	    <p>Ngày Đến</p>
 	  </div>
 	  <div class="col-xs-2">
-	    <div id="datepicker" class="input-group date">
-	        <input class="form-control" type="text" readonly />
+	    <div  class="input-group date" >
+	        <input class="form-control" type="text" readonly="" id="txtNgayDen"/>
 	        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> 
-	    </div> <!-- datepicker -->
+	    </div> <!-- datepicker --> 
 	  </div>    
 	  <div class="col-xs-1 text-left text-DatPhong text-center">
 	    <p>Ngày Đi</p>
 	  </div>      
 	  <div class="col-xs-2">                
-	      <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
-	        <input class="form-control" type="text" readonly />
+	      <div class="input-group date" >
+	        <input class="form-control" type="text" readonly="" id="txtNgayDi"/>
 	        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> 
 	    </div> <!-- datepicker -->
 	  </div>
@@ -145,7 +173,7 @@
 	@yield('noidung')
 
 
-			
+		
 
 	<div class="clearfix"></div>
 	
@@ -181,29 +209,7 @@
     	<div class="clearfix"></div>     	
   	</div><!--  end footer -->
 
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="{{ asset('public/js/jquery.min.js') }}"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>  
-	<script>
-		// sideshow  
-	    $('#CarouselTop').carousel({ 
-	        interval:   4000    
-	    });
-	    // datepicker
-		$(function () {
-		  $("#datepicker").datepicker({ 
-		        minDate: -20, maxDate: "+1M +10D" 
-		  });
-		});
-		$(function () {
-		  $("#datepicker2").datepicker({ 
-		        autoclose: true, 
-		        todayHighlight: true
-		  }).datepicker('update', new Date());
-		});   
-	</script>
+	
 	@yield('script')
     
   </body>
