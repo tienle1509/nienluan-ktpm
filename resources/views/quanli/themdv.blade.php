@@ -72,7 +72,7 @@
 
                     <!-- Thêm nhiều ảnh -->
                     <div class="row container-fluid">
-                        <label>Chọn ảnh phụ phụ :</label>
+                        <label>Chọn ảnh phụ:</label>
                         <input type="file" name="imgAnh[]" style="margin-bottom: 5px">
                         <p style='color:red;'>{{$errors->first('imgAnh')}}</p>
                         <div id="insert"></div>

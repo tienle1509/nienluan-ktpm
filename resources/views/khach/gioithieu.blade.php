@@ -33,7 +33,7 @@
 				
 				
 			
-	    <div id="Carousel_2" class="col-lg-4 carousel slide" style="padding: 0px;">
+	    <div id="Carousel_GT1" class="col-lg-4 carousel slide" style="padding: 0px;">
 	      <ol class="carousel-indicators"> 
 	           <li data-target="#myCarousel" data-slide-to="0" class="active"></li> 
 	           <li data-target="#myCarousel" data-slide-to="1"></li> 
@@ -71,7 +71,7 @@
 	
 	<div class="panel-GioiThieu container-fluid" style="padding: 0px; ">
 
-		<div id="Carousel_3" class="col-lg-4 carousel slide" style="padding: 0px;">
+		<div id="Carousel_GT2" class="col-lg-4 carousel slide" style="padding: 0px;">
 	      <ol class="carousel-indicators"> 
 	           <li data-target="#myCarousel" data-slide-to="0" class="active"></li> 
 	           <li data-target="#myCarousel" data-slide-to="1"></li> 
@@ -104,3 +104,16 @@
 		</div>			
 	</div>
 @stop	
+
+@section('script')
+	<script>
+		// sideshow  
+	    $('#Carousel_GT1').carousel({ 
+	        interval:   4000    
+	    });
+	    $('#Carousel_GT2').carousel({ 
+	        interval:   4000    
+	    });
+	</script>
+
+@stop
