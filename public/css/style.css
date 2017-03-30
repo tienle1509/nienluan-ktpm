@@ -89,9 +89,6 @@ body {
 }
 
 
-#slideshowBG {
-	border-bottom: 1px solid black;
-}
 
 
 
@@ -120,13 +117,12 @@ body {
 	line-height: 29px;
 	background-color: #fff;
 }
-
-.panel-GioiThieu{
+.panel-GioiThieu, .panel-GopY{
 	margin-left: 20px; 
-	margin-right: 20px;  
+	margin-right: 20px;
+	margin-bottom: 20px; 
 	padding: 5px;
 	box-shadow: 0px 1px 5px rgba(0,0,0,0.5);
-	margin-bottom: 30px;
 	font-size: 16px;
 	font-family: Verdana, sans-serif; 
 	line-height: 24px;
@@ -134,14 +130,16 @@ body {
 }
 .panel-GioiThieu img {
 	width: 100%;
-	height: 100%;
-
-
-	
+	height: 100%;	
+}
+.panel-GioiThieu p , .panel-GopY p{
+	margin: 20px 10px 20px 10px;
 }
 
-.panel-GioiThieu p {
-	margin: 20px 10px 20px 10px;
+.panel-GopY {
+	
+	background-color: #faf6bd;
+	color: black;
 }
 
 .panel-DatPhong{
@@ -159,26 +157,34 @@ body {
 	padding: 20px 20px 20px 20px;
 	box-shadow: 0px 0px 5px rgba(0,0,0,0.6);
 	margin-top: 20px ; 
-	margin-bottom: 20px;
 	font-size: 16px;
 	font-family: Verdana, sans-serif; 
 	line-height: 25px;
 	background-color: #f6f6f6;
-	
 }
 
-
-
-.panel-LoaiPhong {
+.panel-LoaiPhong, .panel-GioiThieuPhong {
 	text-align: center;
 	box-shadow: 0px 1px 5px rgba(0,0,0,0.5);
 	font-family: Arial, Times, sans-serif;
 	padding-bottom: 10px;
 	background-color: #fff;
 	}
-.panel-LoaiPhong img{
+.panel-LoaiPhong img, .panel-GioiThieuPhong img{
 	width: 100%;
 	height: 100%;
+}
+
+
+.panel-GioiThieuPhong .table-LoaiPhong {
+	margin: 10px;
+}
+.panel-GioiThieuPhong .table-LoaiPhong th{	
+	min-width: 110px;
+	font-weight: normal;
+}
+.panel-GioiThieuPhong .table-LoaiPhong td{
+	min-width: 200px
 }
 
 .panel-DichVu {
@@ -285,12 +291,12 @@ body {
 	font-size: 18px;
 	line-height: 24px;
 	text-shadow: 0px 1px 1px black;
-	
 }
 
 #footer {
 	border-top: 1px solid black;
 	padding: 0px 10px 10px 10px;
+	margin-top:  15px;
 }
 
 #footer a:hover{
@@ -316,4 +322,8 @@ body {
 .tooltip-inner {
 	background-color: black;
 	color: #e4d295; 
+}
+
+.glyphicon-menu-right {
+	color: green;
 }

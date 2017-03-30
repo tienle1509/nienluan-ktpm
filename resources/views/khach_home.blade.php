@@ -16,20 +16,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <style>
-	.table-LoaiPhong th{
-	
-		min-width: 110px;
-		font-weight: normal;
 
-	}
-	.table-LoaiPhong {
-		margin: 10px;
-	}
-	.table-LoaiPhong td{
-		min-width: 200px
-	}
-</style>
   <body>
 
 	<div>
@@ -51,7 +38,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div id="mainmenu" class="collapse navbar-collapse">
           <ul  class="nav navbar-nav navbar-right">
-            <li><a  href="{{ asset('home') }}">Trang Chủ</a></li>
+            <li><a  href="{{ asset('home') }}" >Trang Chủ</a></li>
             <li><a href="{{ asset('gioithieu') }}">Giới Thiệu</a></li>
             <li class="dropdown">
                 <button class="dropbtn">Loại Phòng </button>
@@ -76,7 +63,7 @@
 
 	<!-- sideshow -->
   	<div id="slideshowBG">
-	    <div id="myCarousel" class="carousel slide">
+	    <div id="CarouselTop" class="carousel slide">
 	      <ol class="carousel-indicators"> 
 	           <li data-target="#myCarousel" data-slide-to="0" class="active"></li> 
 	           <li data-target="#myCarousel" data-slide-to="1"></li> 
@@ -153,7 +140,7 @@
 	</div><!-- end Form đặt phòng -->  
 
 	
-		@yield('noidung')
+	@yield('noidung')
 
 
 			
@@ -192,26 +179,17 @@
     	<div class="clearfix"></div>     	
   	</div><!--  end footer -->
 
-
-
-
-
-
-
-		        
-
-
-
-
-
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="{{ asset('public/js/jquery.min.js')}}"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ asset('public/js/jquery.min.js') }}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>
 	<script>
-		// datepicker
+		// sideshow  
+	    $('#CarouselTop').carousel({ 
+	        interval:   4000    
+	    });
+	    // datepicker
 		$(function () {
 		  $("#datepicker").datepicker({ 
 		        autoclose: true, 
@@ -224,41 +202,9 @@
 		        todayHighlight: true
 		  }).datepicker('update', new Date());
 		});
-		//tooltip
-	    $(function () {
-		  $('[data-toggle="tooltip"]').tooltip()
-		});
-		// sideshow  
-		$('#myCarousel').carousel({ 
-	        interval:   4000    
-	    });
-	    $('#Carousel_1').carousel({ 
-	        interval:   4000    
-	    });
-	    $('#Carousel_2').carousel({ 
-	        interval:   4000    
-	    });
-	    $('#Carousel_3').carousel({ 
-	        interval:   4000    
-	    });
 	</script>
-	<!-- google map -->
-	<script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
-	<script type='text/javascript'>
-    	function init_map(){
-    		var myOptions = {
-    			zoom:13,
-    			center:new google.maps.LatLng(11.89424,108.43811099999994),
-    			mapTypeId: google.maps.MapTypeId.ROADMAP
-    		};
-			map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
-			marker = new google.maps.Marker({
-				map: map,position: new google.maps.LatLng(11.89424,108.43811099999994)
-			});
-			infowindow = new google.maps.InfoWindow({content:'<strong>Terracotta Hotel & Resort Dalat</strong><br>Terracotta hotel & resort Dalat<br>'});
-			google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});
-			infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);
-    </script>	
+	@yield('script')
+    
   </body>
 </html>
 
