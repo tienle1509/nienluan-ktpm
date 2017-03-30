@@ -41,27 +41,36 @@
 		</div>
 	</div>
 	<!-- /Gop Y -->	
-	<div class="col-lg-10 col-md-offset-1">		
+	<div class="col-lg-10 col-md-offset-1">
+		
 		<div class="panel-GioiThieu container-fluid" style="padding: 0px; ">
-			<h2>&nbsp;Thông tin liên hệ</h2>
-			
-			<p>
-				<b>Địa chỉ:</b> Phân khu 7.9, Khu du lịch Hồ Tuyền Lâm, phường 3, thành phố Đà Lạt, Tỉnh Lâm Đồng. 
-			</p>
-			<p>
-				<b>Tel:</b> 063 388 3838.
-			</p>
-			<p>
-				<b>Vị trí:</b> Terracotta là một bán đảo tạo lạc ngay đầu bờ hồ Tuyền Lâm. Cách trung tâm thành phố Đà Lạt 6km, thiền viện Trúc Lâm 1km, sân bay Liên Khương 20km.
-			</p>		
-		</div>				
+		<h2>&nbsp;Thông tin liên hệ</h2>
+		
+		<p>
+			<b>Địa chỉ:</b> Phân khu 7.9, Khu du lịch Hồ Tuyền Lâm, phường 3, thành phố Đà Lạt, Tỉnh Lâm Đồng. 
+		</p>
+		<p>
+			<b>Tel:</b> 063 388 3838.
+		</p>
+		<p>
+			<b>Vị trí:</b> Terracotta là một bán đảo tạo lạc ngay đầu bờ hồ Tuyền Lâm. Cách trung tâm thành phố Đà Lạt 6km, thiền viện Trúc Lâm 1km, sân bay Liên Khương 20km.
+		</p>
+
+		
+		
+		</div>
+				
 	</div>			
 	<div class="clearfix"></div>
 	<div class="panel-TrangChu text-center" style="margin-top: 0px">
 		<h1>Bản Đồ</h1>
 		
-	</div> 	
+	</div> 
+	 
+		
+	
 	<div class="clearfix"></div>
+
 	<div class="col-md-10 col-md-offset-1 text-center" style="margin-bottom: 20px">	    
 	    <div style='overflow:hidden; '>
 	    	<div id='gmap_canvas' style="height:500px"></div>
