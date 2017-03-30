@@ -68,6 +68,7 @@ Route::get('datphong',function(){
 	return view('khach.datphong');
 });
 
+Route::get('chitietdv/{madv}',['uses'=>'dichVuController@chiTietDV']);
 
 
 

@@ -9,34 +9,65 @@
 	</div>
 	<div class="container-fluid">
 		<div class="container-fluid panel-GioiThieu">
-			<h1 style="color: #1e1e20">&nbsp;Dịch vụ vận chuyển</h1>
-			<div id="miniCarousel" class="col-md-4">
-				<div id="Carousel_2" class="carousel slide">
+			<h1 style="color: #1e1e20">&nbsp;{!! $dv->tendv !!}</h1>
+
+			<div id="" class="col-md-4">
+				<br>
+				<br>
+				<div id="miniCarousel" class="carousel slide">
 			      	<ol class="carousel-indicators"> 
-			           <li data-target="#myCarousel" data-slide-to="0" class="active"></li> 
-			           <li data-target="#myCarousel" data-slide-to="1"></li> 
-			           <li data-target="#myCarousel" data-slide-to="2"></li> 
+			           <li data-target="#miniCarousel" data-slide-to="0" class="active"></li> 	           
+			            
+			            <?php
+			            	$dataSlide = 0;
+			            ?> 
+		           		@foreach ($ds_anhDv as $anhDv) 
+		           			<?php
+				            	$dataSlide ++;
+				            ?>
+		           			<li data-target="#miniCarousel" data-slide-to="1"></li>
+		           		@endforeach
 			        </ol>
-			      
 			      	<div class="carousel-inner"> 
-			          <figure class="item active">
-			              <img src="img/service/transport1.jpg" alt="" >
-			          </figure> 
-			          <figure class="item">
-			               <img src="img/service/transport2.jpg" alt="" >
-			          </figure>
-			          <figure class="item">
-			               <img src="img/service/transport3.jpg" alt="" >
-			          </figure>
-			   
-			       	</div> 
+                        <figure class="item active">
+                            <img 
+                                <?php
+                                    $url = asset('public/dichvu/') ;
+                                    echo "src=". '"'.$url. '/' .$dv->anhdv .'"';
+                                ?>  
+                            >
+                        </figure>
+                        @foreach ($ds_anhDv as $anhDv)
+                            <figure class="item">
+                                <img 
+                                    <?php
+                                        $url = asset('public/dichvu/') ;
+                                        echo "src=". '"'.$url. '/' .$anhDv->tenanh .'"';
+                                    ?> 
+                                >                              
+                            </figure>
+                        @endforeach
+               
+                   	</div>
+			      	 
 			    </div>
 			</div>
 			<div class="col-md-8">
-				<p>Nội dung....</p>
+				<p>{!! $dv->mota !!}</p>
+				{!! $dv->noidungdv !!}
+
 			</div>
 			
 		</div>	
 		<div class="clearfix"></div>
 	</div>
+@stop
+
+@section('script')
+	<script>
+		$('#miniCarousel').carousel({ 
+	        interval:   4000    
+	    });
+
+	</script>
 @stop

@@ -6,6 +6,9 @@ body {
 	display: none;
 	bottom: 1px;
 }
+#miniCarousel img{
+	height: 250px;
+}
 
 /* /navbar */
 .navbar-brand {
@@ -136,13 +139,6 @@ body {
 	margin: 20px 10px 20px 10px;
 }
 
-
-
-
-
-
-
-
 .panel-GopY {
 	
 	background-color: #faf6bd;
@@ -204,7 +200,7 @@ body {
 	color: #1e1e20;
 	font-size: 15px;
 	background-color: #f6f6f6;
-	height: 450px;
+	height: 430px;
 }
 .panel-DichVu p {
 	padding: 5px;

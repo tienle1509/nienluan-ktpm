@@ -16,6 +16,7 @@ class khuyenmai extends Model
     	'ngaybt',
     	'ngaykt',
     	'chietkhau',
+        'mota',
     	'noidungkm',
     	'maql',
     ];
