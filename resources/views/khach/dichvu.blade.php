@@ -21,12 +21,8 @@
 	            <div class="col-md-4">
 					<div class="panel-DichVu ">
 						
-						<img 
-							<?php
-								$url = asset('public/dichvu/') ;
-								echo "src=". '"'.$url. '/' .$data->anhdv .'"';
-							?>  
-						alt="" >
+						<img src="{{ asset('public/dichvu/'.$data->anhdv) }}"> 
+						
 						<h3 class="text-center"><a href="chitietdv/{!!$data->madv!!}">{!! $data->tendv !!}</a></h3>
 						<p>{!! $data->mota !!}</p>
 						

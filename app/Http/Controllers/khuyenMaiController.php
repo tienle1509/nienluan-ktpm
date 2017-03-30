@@ -91,6 +91,7 @@ class khuyenMaiController extends Controller
         $noidungkm = $request->txtNoiDung;
 
 
+
         $v = Validator::make($request->all(),
             [
                 'txtTieuDe'=>'required',
@@ -111,16 +112,6 @@ class khuyenMaiController extends Controller
         if($v->fails()){
             return redirect()->back()->withErrors($v->errors());
         }else{
-            //Cập nhật trong bảng khuyến mãi
-            DB::table('khuyen_mai')->where('makm',$makm)->update([
-                                                                    'tenkm'=> $tenkm,
-                                                                    'ngaytao'=>$ngaytao,
-                                                                    'ngaybd'=>$ngaybd,
-                                                                    'ngaykt'=>$ngaykt,
-                                                                    'chietkhau'=>$chietkhau,
-                                                                    'noidungkm'=>$noidungkm,
-                                                                    'maql'=>$maql
-                                                                ]);    
             //Cập nhật trong bảng chi tiết khuyến mãi
             foreach ($request->txtLoaiPhong as $val) {
                 //Xóa mã khuyến mãi trong bảng
