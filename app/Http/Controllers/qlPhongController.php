@@ -103,7 +103,7 @@ class qlPhongController extends Controller
     		//Lấy dữ liệu từ ajax gửi qua
     		$maphong = Request::get('maphong');
     		$tenphong = Request::get('tenphong');
-    		$loaiphong = Request::get('loaiphong'); //Mã của loại phòng
+    		//$loaiphong = Request::get('loaiphong'); //Mã của loại phòng
     		$tinhtrang = Request::get('tinhtrang');
 
     		$v = Validator::make(Request::all(),
@@ -120,7 +120,7 @@ class qlPhongController extends Controller
     				'errors'=>$v->errors()->toArray()
     			]);
     		}else{
-    			DB::table('phong')->where('maphong',$maphong)->update(['tenphong'=>$tenphong, 'tinhtrang'=>$tinhtrang, 'malp'=>$loaiphong]);
+    			DB::table('phong')->where('maphong',$maphong)->update(['tenphong'=>$tenphong, 'tinhtrang'=>$tinhtrang]);
 
     			return Response::json(['success'=>true]);
     		}
