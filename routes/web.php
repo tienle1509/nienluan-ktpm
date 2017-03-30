@@ -128,4 +128,3 @@ Route::group(['prefix'=>'quanli', 'middleware'=>'auth'],function(){
 Route::get('dangxuat',['uses'=>'Auth\LoginController@getDangXuat']);
 
 
-

@@ -4,11 +4,13 @@
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet prefetch" href="{{ asset('public/css/datepicker.css') }}">
+<!--	<link rel="stylesheet prefetch" href="{{ asset('public/css/datepicker.css') }}"> -->
 	<link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css') }}" >
 	<link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('public/font-awesome/css/font-awesome.min.css') }}">
 	<link rel="icon" href="{{ asset('public/img/icon.png') }}">
+
+	
 
     <title>Terracotta Hotel & Resort</title>
     <!--[if lt IE 9]>
@@ -96,7 +98,7 @@
 	    <p>Ngày Đến</p>
 	  </div>
 	  <div class="col-xs-2">
-	    <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+	    <div id="datepicker" class="input-group date">
 	        <input class="form-control" type="text" readonly />
 	        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> 
 	    </div> <!-- datepicker -->
@@ -183,7 +185,7 @@
     <script src="{{ asset('public/js/jquery.min.js') }}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>
+	<script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>  
 	<script>
 		// sideshow  
 	    $('#CarouselTop').carousel({ 
@@ -192,16 +194,15 @@
 	    // datepicker
 		$(function () {
 		  $("#datepicker").datepicker({ 
-		        autoclose: true, 
-		        todayHighlight: true
-		  }).datepicker('update', new Date());
+		        minDate: -20, maxDate: "+1M +10D" 
+		  });
 		});
 		$(function () {
 		  $("#datepicker2").datepicker({ 
 		        autoclose: true, 
 		        todayHighlight: true
 		  }).datepicker('update', new Date());
-		});
+		});   
 	</script>
 	@yield('script')
     
