@@ -14,7 +14,7 @@
             var maphong = $(this).closest('tr').find('td:nth-child(2)').text();
             var tenphong = $(this).closest('tr').find("input[name='nameroom']").val();
             //Lấy giá trị trong option (mã loại phòng)
-            var loaiphong = $(this).closest('tr').find("select#LP").val();
+            //var loaiphong = $(this).closest('tr').find("select#LP").val();
             //Lấy tình trạng phòng giá trị 0, 1,2
             var tinhtrang = $(this).closest('tr').find("select#TT").val();
             //alert(tinhtrang);
@@ -23,7 +23,7 @@
                 url : url,
                 type : "GET",
                 dataType : "JSON",
-                data : {"maphong":maphong, "tenphong":tenphong, "loaiphong":loaiphong, "tinhtrang":tinhtrang},
+                data : {"maphong":maphong, "tenphong":tenphong, "tinhtrang":tinhtrang},
                 success : function(result){
                     if(!result.success){
                         var ht = '';
@@ -73,8 +73,8 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Mã phòng</th>
-                                        <th>Tên phòng</th>   
-                                        <th>Tên loại phòng</th>               
+                                        <th>Tên loại phòng</th>
+                                        <th>Tên phòng</th>                  
                                         <th>Tình trạng hiện tại</th>    
                                         <th>Thao Tác</th>                               
                                     </tr>
@@ -100,45 +100,14 @@
                                                 </td>
                                                 <td id="MP">{{$val->maphong}}</td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="nameroom" value="{{$val->tenphong}}" id="TP">
-                                                <!--    <div id="erTenPhong" style='color:red; margin-bottom: -15px; margin-top: 5px'></div>  -->
+                                                    <?php
+                                                        $tenlp = DB::table('loai_phong')->where('malp',$val->malp)->first();
+                                                        echo $tenlp->tenlp;
+                                                    ?>   
                                                 </td>
                                                 <td>
-                                                    <select id="LP" class="form-control" style="width: 150px">
-                                                    <?php
-                                                        $tenloai = DB::table('loai_phong')->where('malp',$val->malp)->first();
-                                                        if($tenloai->tenlp == 'Standard')
-                                                            echo '<option value="'.$tenloai->malp.'" selected>Standard</option>'
-                                                                .'<option value="LP002">Superior</option>'
-                                                                .'<option value="LP003">Deluxe</option>'
-                                                                .'<option value="LP004">Premium-Villa</option>'
-                                                                .'<option value="LP005">Junior-Villa</option>';
-                                                        if($tenloai->tenlp == 'Superior')
-                                                            echo '<option value="LP001">Standard</option>'
-                                                                .'<option value="'.$tenloai->malp.'" selected>Superior</option>'
-                                                                .'<option value="LP003">Deluxe</option>'
-                                                                .'<option value="LP004">Premium-Villa</option>'
-                                                                .'<option value="LP005">Junior-Villa</option>';
-                                                        if($tenloai->tenlp == 'Deluxe')
-                                                            echo '<option value="LP001">Standard</option>'
-                                                                .'<option value="LP002">Superior</option>'
-                                                                .'<option value="'.$tenloai->malp.'" selected>Deluxe</option>'
-                                                                .'<option value="LP004">Premium-Villa</option>'
-                                                                .'<option value="LP005">Junior-Villa</option>';
-                                                        if($tenloai->tenlp == 'Premium-Villa')
-                                                            echo '<option value="LP001">Standard</option>'
-                                                                .'<option value="LP002">Superior</option>'
-                                                                .'<option value="LP003">Deluxe</option>'
-                                                                .'<option value="'.$tenloai->malp.'" selected>Premium-Villa</option>'
-                                                                .'<option value="LP005">Junior-Villa</option>';
-                                                        if($tenloai->tenlp == 'Junior-Villa')
-                                                            echo '<option value="LP001">Standard</option>'
-                                                                .'<option value="LP002">Superior</option>'
-                                                                .'<option value="LP003">Deluxe</option>'
-                                                                .'<option value="LP004">Premium-Villa</option>'
-                                                                .'<option value="'.$tenloai->malp.'" selected>Junior-Villa</option>';
-                                                    ?>
-                                                    </select>   
+                                                    <input type="text" class="form-control" name="nameroom" value="{{$val->tenphong}}" id="TP" style="width: 150px;">
+                                                <!--    <div id="erTenPhong" style='color:red; margin-bottom: -15px; margin-top: 5px'></div>  -->
                                                 </td>
                                                 <td>
                                                     <select id="TT" class="form-control" style="width: 150px">
