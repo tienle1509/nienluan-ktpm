@@ -117,7 +117,6 @@ body {
 	line-height: 29px;
 	background-color: #fff;
 }
-
 .panel-GioiThieu, .panel-GopY{
 	margin-left: 20px; 
 	margin-right: 20px;
@@ -133,10 +132,16 @@ body {
 	width: 100%;
 	height: 100%;	
 }
-
 .panel-GioiThieu p , .panel-GopY p{
 	margin: 20px 10px 20px 10px;
 }
+
+
+
+
+
+
+
 
 .panel-GopY {
 	
