@@ -24,16 +24,22 @@
 	        interval:   4000    
 	    });
 	    // datepicker
+		
 		$(function () {
-		  $("#txtNgayDen").datepicker({ 
-		  		dateFormat : "dd-mm-yy",
-		        minDate: 0, 
-		  });
-		  $("#txtNgayDi").datepicker({
-		  		dateFormat : "dd-mm-yy", 
-		  		minDate : "txtNgayDen.value"
-		  });
-		});
+                $("#txtNgayDen").datepicker({
+                	dateFormat : 'dd-mm-yy',
+                    minDate: 0,
+                    onClose: function (selectedDate) {
+                        if (selectedDate != ""){ 
+                        	$("#txtNgayDi").datepicker("option", "minDate", selectedDate); }
+                    }
+                });
+                $("#txtNgayDi").datepicker({
+                	dateFormat : 'dd-mm-yy',
+                    minDate: 'selectedDate',
+                    
+                });
+            });
 	</script>
 
 
