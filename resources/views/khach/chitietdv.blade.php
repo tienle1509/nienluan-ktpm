@@ -30,21 +30,11 @@
 			        </ol>
 			      	<div class="carousel-inner"> 
                         <figure class="item active">
-                            <img 
-                                <?php
-                                    $url = asset('public/dichvu/') ;
-                                    echo "src=". '"'.$url. '/' .$dv->anhdv .'"';
-                                ?>  
-                            >
+                            <img src="{{ asset('public/dichvu/'.$dv->anhdv) }}">
                         </figure>
                         @foreach ($ds_anhDv as $anhDv)
                             <figure class="item">
-                                <img 
-                                    <?php
-                                        $url = asset('public/dichvu/') ;
-                                        echo "src=". '"'.$url. '/' .$anhDv->tenanh .'"';
-                                    ?> 
-                                >                              
+								<img src="{{ asset('public/dichvu/'.$anhDv->tenanh) }}" alt="">                             
                             </figure>
                         @endforeach
                

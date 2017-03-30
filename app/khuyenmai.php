@@ -18,6 +18,7 @@ class khuyenmai extends Model
     	'chietkhau',
         'mota',
     	'noidungkm',
+        'anhkm',
     	'maql',
     ];
 }
