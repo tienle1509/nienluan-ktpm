@@ -16,20 +16,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <style>
-	.table-LoaiPhong th{
-	
-		min-width: 110px;
-		font-weight: normal;
-
-	}
-	.table-LoaiPhong {
-		margin: 10px;
-	}
-	.table-LoaiPhong td{
-		min-width: 200px
-	}
-</style>
   <body>
 
 	<div>
@@ -76,15 +62,8 @@
 
 	<!-- sideshow -->
   	<div id="slideshowBG">
-	    <div id="myCarousel" class="carousel slide">
-	      <ol class="carousel-indicators"> 
-	           <li data-target="#myCarousel" data-slide-to="0" class="active"></li> 
-	           <li data-target="#myCarousel" data-slide-to="1"></li> 
-	           <li data-target="#myCarousel" data-slide-to="2"></li> 
-	           <li data-target="#myCarousel" data-slide-to="3"></li> 
-
-	        </ol>
-	      
+	    <div id="CarouselTop" class="carousel slide">
+      
 	      <div class="carousel-inner"> 
 	          <figure class="item active">
 	              <img src="{{ asset('public/img/background/background1.jpg') }}" alt="panner1" width="100%">
@@ -102,7 +81,7 @@
 	       </div> 
 	    </div>
   	</div> 
-  	<div class="panel-TrangChu text-center container-fluid" style="  background-color: #2a2c2b; color: #e4d295">
+  	<div class="panel-TrangChu text-center container-fluid" style=" background-color: #2a2c2b; color: #e4d295">
 		<h2>Terracotta Đà Lạt</h2>
 		<p>
 		 Một trong những điểm đến lý tưởng dành cho những ai yêu thích thiên nhiên và mong muốn tìm một nơi nghỉ dưỡng đẳng cấp đúng nghĩa.
@@ -110,8 +89,74 @@
 	</div>
 
  
-  	@yield('noidung')
+  	
 	
+	<div class="panel-ChiTietPhong container-fluid" >
+		<div class="row">
+			<div class="col-md-5 ">
+				@yield('CarouselRoom')	
+			</div>
+
+			<div class="col-md-7">
+				@yield('RoomDetails')
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+
+		<div class="row">
+			<div class="col-md-5">
+				<div class="pull-right">
+					<h1 style="color: #dc3522" class="text-right">
+						<?php
+							echo number_format($room->dongia) . " VND";
+						?>	
+					</h1>
+					<br>
+
+				</div>
+			</div>
+			<div class="col-md-7">
+				<br>
+				<div class="text-center" style="color: gray">
+					<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="Wifi miễn phí">				
+						<i class="fa fa-wifi fa-2x" ></i>
+
+					</div>
+					<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="TV LED">
+						<i class="fa fa-television fa-2x"></i>				
+					</div>
+					<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="Bồn Tắm">
+						<i class="fa fa-bath fa-2x"></i>	
+					</div>
+					<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" data-html="true"
+						title="Tủ lạnh/minibar <br> 
+								TV màn hình LED <br> 
+								Chìa khóa phòng điện tử <br> 
+								Két sắt an toàn điện tử <br> 
+								Dụng cụ pha trà, cà phê <br> 
+								Máy sấy tóc" >	
+						<i class="fa fa-bars fa-2x"></i>			
+					</div>							
+				</div>		
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				<div class="pull-right">
+					<button type="button" class="btn btn-outline btn-DatPhong "
+					style="width: 290px">Đặt Phòng</button>
+				</div>	
+			</div>
+		</div>
+		
+	</div>
+
+
+
+
+
+
 
 	<div class="clearfix"></div>
 	
@@ -181,13 +226,10 @@
 		});
 
 		// sideshow  
-		$('#myCarousel').carousel({ 
+		$('#CarouselTop').carousel({ 
 	        interval:   4000    
 	    });
-	    $('#Carousel_1').carousel({ 
-	        interval:   4000    
-	    });
-	    $('#Carousel_2').carousel({ 
+	    $('#CarouselRoom').carousel({ 
 	        interval:   4000    
 	    });
 	    //tooltip
