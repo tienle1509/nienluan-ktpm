@@ -95,6 +95,16 @@
                 </div>
 
                 <div class="row">
+                    <div class="form-group col-lg-12">
+                        <label>Mô Tả</label>
+                        <br>
+                        <textarea name="txtMoTa" id="" cols="110" rows="5" placeholder="Nhập mô tả">{{$km->mota}}</textarea>
+                        <p style='color:red;'>{{$errors->first('txtMoTa')}}</p>
+                    </div>
+                </div> 
+
+
+                <div class="row">
                         <div class="form-group col-lg-12">
                             <label>Áp dụng cho:</label>
                             <br> 

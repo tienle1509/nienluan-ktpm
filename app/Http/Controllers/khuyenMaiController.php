@@ -58,6 +58,7 @@ class khuyenMaiController extends Controller
         $km->ngaybd = date('Y-m-d',strtotime($request->txtngayBD));  //trong CSDL lưu yyyy-mm-dd
         $km->ngaykt = date('Y-m-d',strtotime($request->txtngayKT));
         $km->chietkhau = $request->txtChietKhau;
+        $km->mota = $request->txtMoTa;
         $km->noidungkm = $request->txtNoiDung;
         $km->maql = $maql;
         $km->save();   

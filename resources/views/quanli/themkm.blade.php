@@ -58,11 +58,19 @@
                     <div class="row">
                         <div class="form-group col-lg-2">
                             <label>Chiết Khấu(%)</label>
-                            <input type="number" class="form-control" min="1" name="txtChietKhau" value="{{ old('txtChietKhau') }}">
+                            <input type="number" class="form-control" min="0" max="100" name="txtChietKhau" value="{{ old('txtChietKhau') }}">
                             <p style='color:red;margin-bottom: -15px; margin-top: 5px'>{{$errors->first('txtChietKhau')}}</p>
-                        </div>
-                        
+                        </div>                        
                     </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-12">
+                            <label>Mô Tả</label>
+                            <br>
+                            <textarea name="txtMoTa" id="" cols="110" rows="5" placeholder="Nhập mô tả">{!! old('txtMoTa') !!}</textarea>
+                            <p style='color:red;'>{{$errors->first('txtMoTa')}}</p>
+                        </div>
+                    </div>  
 
                     <div class="row">
                         <div class="form-group col-lg-12">
