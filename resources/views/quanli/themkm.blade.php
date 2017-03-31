@@ -102,6 +102,11 @@
                             <p style='color:red; margin-bottom: -15px; margin-top: 5px'>{{$errors->first('txtNoiDung')}}</p>
                         </div>
                     </div>
+                    <div class="row container-fluid">
+                        <label>Chọn ảnh :</label>
+                        <input type="file" name="imgKm" style="margin-bottom: 5px">
+                        <p style='color:red;'>{{$errors->first('imgKm')}}</p>
+                    </div>
 
                     <div class="row">
                         <div class="col-lg-1 col-lg-offset-8">
