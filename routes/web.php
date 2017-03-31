@@ -35,9 +35,8 @@ Route::get('gioithieu',function(){
 Route::get('dichvu',function(){
 	return view('khach.dichvu');
 });
-Route::get('chitietdv',function(){
-	return view('khach.chitietdv');
-});
+Route::get('chitietdv/{madv}',['uses'=>'dichVuController@chiTietDV']);
+
 //KHUYẾN MÃI
 Route::get('khuyenmai',function(){
 	return view('khach.khuyenmai');
@@ -64,11 +63,8 @@ Route::get('junior',function(){
 });
 
 //ĐẶT PHÒNG
-Route::get('datphong',function(){
-	return view('khach.datphong');
-});
-
-Route::get('chitietdv/{madv}',['uses'=>'dichVuController@chiTietDV']);
+Route::post('datphong',['uses'=>'datPhongController@datPhong']);
+Route::get('datphong',['uses'=>'xoaAjax@luuDatPhong']);
 
 
 

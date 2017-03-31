@@ -4,11 +4,103 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet prefetch" href="css/datepicker.css">
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css')}}" >
     <link rel="stylesheet" href="{{ asset('public/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('public/font-awesome/css/font-awesome.min.css')}}">
 	<link rel="icon" href="{{ asset('public/img/icon.png')}}">
+
+	<!-- ajax -->
+    <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+	<!-- datepicker -->
+  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+
+	<script>
+		// sideshow  
+	    $('#CarouselTop').carousel({ 
+	        interval:   4000    
+	    });
+	    // datepicker		
+		$(function () {
+                $("#Sdate").datepicker({
+                	dateFormat : 'dd-mm-yy',
+                    minDate: 0,
+                    onClose: function (selectedDate) {
+                        if (selectedDate != ""){ 
+                        	$("#Edate").datepicker("option", "minDate", selectedDate); }
+                    }
+                });
+                $("#Edate").datepicker({
+                	dateFormat : 'dd-mm-yy',
+                    minDate: 'selectedDate',
+                    
+                });
+        });
+
+        //Bắt sự kiện button đặt phòng
+        $(document).ready(function(){
+        	$("#btn-DatPhong").click(function(){
+        		var url = "http://localhost/nienluan-ktpm/datphong";
+        		var ngayden = $("#Sdate").val();
+        		var ngaydi = $("#Edate").val();
+        		var nguoilon = $("#cboNgLon").val();
+        		var treem = $("#cboTrEm").val();
+        		var hoten = $("#HoTen").val();
+        		var sdt = $("#SDT").val();
+        		var email = $("#Email").val();
+        		var loaiphong = $("#cboLP").val();
+        		//alert($loaiphong);
+
+        		$.ajax({
+        			url : url,
+        			type : "GET",
+        			dataType : "JSON",
+        			data : {"ngayden":ngayden, "ngaydi":ngaydi, "nguoilon":nguoilon, "treem":treem, "hoten":hoten, "sdt":sdt, "email":email, "loaiphong":loaiphong},
+        			success : function(result){
+        				if(!result.success){
+        					var eroHT = '';
+        					var eroSDT = '';
+        					var eroEmail = '';
+        					var eroLP = '';
+        					$.each(result.errors,function(index, item){
+        						if(index == 'hoten')
+        							eroHT = item;
+        						if(index == 'sdt')
+        							eroSDT = item;
+        						if(index == 'email')
+        							eroEmail = item;
+        						if(index == 'loaiphong')
+        							eroLP = item;
+        					});
+        					$("#eroHT").html(eroHT);
+        					$("#eroSDT").html(eroSDT);
+        					$("#eroEmail").html(eroEmail);
+        					$("#eroLP").html(eroLP);
+        				}else{
+        					alert('Đặt phòng thành công !');
+        					location = "http://localhost/nienluan-ktpm/home";
+        				}
+        			}
+        		});
+        	});
+        });
+
+        //Thay đổi panel loại phòng khi chọn combobox
+        $("#cboLP").change(function(){
+		    if ($("#cboLP").val() = "LP003" ) {
+		    	$("#txtKT").html('<i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Kích thước: 50 m<sup>2</sup>');
+		    	$("#txtGiuong").html('<i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Giường: 1 giường đôi hoặc 2 giường đơn');
+		    	$("#txtSucChua").html('<i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Sức chứa: 3 khách');
+		    }  
+		});
+	</script>
+
 
 	<title>Terracotta Hotel & Resort</title>
 </head>
@@ -33,29 +125,29 @@
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	          </button> 
-	          <a class="navbar-brand" href="index.htm">
+	          <a class="navbar-brand" href="{{asset('home')}}">
 	            <img src="{{ asset('public/img/logo2.png')}}" alt="logoHotelTerracotta">
 	          </a>
 	        </div>
 	    
 	        <!-- Collect the nav links, forms, and other content for toggling -->
-	        <div id="mainmenu" class="collapse navbar-collapse">
-	          <ul  class="nav navbar-nav navbar-right">
-	            <li><a  href="index.htm">Trang Chủ</a></li>
-	            <li><a href="about.htm">Giới Thiệu</a></li>
-	            <li class="dropdown">
-	                <button class="dropbtn">Loại Phòng </button>
-	              	<div class="dropdown-content">
-	                    <a href="room_standard.htm">Phòng Standard</a>
-	                    <a href="room_superior.htm">Phòng Superior</a>
-	                    <a href="room_deluxe.htm">Phòng Deluxe</a>
-	                    <a href="room_premium.htm">Phòng Premium - Villa</a>
-	                    <a href="room_junior.htm">Phòng Junior - Villa</a>
-	            	</div>
-		        </li>             
-	            <li><a href="service.htm">Dịch Vụ</a></li>
-	            <li><a href="promotion.htm">Khuyến Mãi</a></li>
-	            <li><a href="contact.htm">Liên Hệ</a></li>
+        <div id="mainmenu" class="collapse navbar-collapse">
+          <ul  class="nav navbar-nav navbar-right">
+            <li><a  href="{{ asset('home')}}">Trang Chủ</a></li>
+            <li><a href="{{ asset('gioithieu')}}">Giới Thiệu</a></li>
+            <li class="dropdown">
+                <button class="dropbtn">Loại Phòng </button>
+              	<div class="dropdown-content">
+                    <a href="{{ asset('standard')}}">Phòng Standard</a>
+                    <a href="{{ asset('superior')}}">Phòng Superior</a>
+                    <a href="{{ asset('deluxe')}}">Phòng Deluxe</a>
+                    <a href="{{ asset('premium')}}">Phòng Premium - Villa</a>
+                    <a href="{{ asset('junior')}}">Phòng Junior - Villa</a>
+            	</div>
+	        </li>             
+            <li><a href="{{ asset('dichvu')}}">Dịch Vụ</a></li>
+            <li><a href="{{ asset('khuyenmai')}}">Khuyến Mãi</a></li>
+            <li><a href="{{ asset('lienhe')}}">Liên Hệ</a></li>
 	          </ul> 
 	        </div><!-- /.navbar-collapse -->
 	      </div> <!-- /container -->
@@ -79,32 +171,32 @@
 							<img src="{{ asset('public/img/gallery/1.jpg')}}" alt="" width="460px" height="256px">
 						</div>
 						<div class="img-thumbnail">
-							<img src="img/gallery/2.jpg" alt="" width="460px" height="257px">
+							<img src="{{ asset('public/img/gallery/2.jpg')}}" alt="" width="460px" height="257px">
 						</div>
 					</figure> 
 
 					<figure class="item text-center">
 						<div class="img-thumbnail">
-							<img src="img/gallery/3.jpg" alt="" width="460px" height="256px">
+							<img src="{{ asset('public/img/gallery/3.jpg')}}" alt="" width="460px" height="256px">
 						</div>
 						<div class="img-thumbnail">
-							<img src="img/gallery/4.jpg" alt="" width="460px" height="257px">
-						</div>
-					</figure>
-					<figure class="item text-center">
-						<div class="img-thumbnail">
-							<img src="img/gallery/5.jpg" alt="" width="460px" height="256px">
-						</div>
-						<div class="img-thumbnail">
-							<img src="img/gallery/6.jpg" alt="" width="460px" height="257px">
+							<img src="{{ asset('public/img/gallery/4.jpg')}}" alt="" width="460px" height="257px">
 						</div>
 					</figure>
 					<figure class="item text-center">
 						<div class="img-thumbnail">
-							<img src="img/gallery/7.jpg" alt="" width="460px" height="256px">
+							<img src="{{ asset('public/img/gallery/5.jpg')}}" alt="" width="460px" height="256px">
 						</div>
 						<div class="img-thumbnail">
-							<img src="img/gallery/8.jpg" alt="" width="460px" height="257px">
+							<img src="{{ asset('public/img/gallery/6.jpg')}}" alt="" width="460px" height="257px">
+						</div>
+					</figure>
+					<figure class="item text-center">
+						<div class="img-thumbnail">
+							<img src="{{ asset('public/img/gallery/7.jpg')}}" alt="" width="460px" height="256px">
+						</div>
+						<div class="img-thumbnail">
+							<img src="{{ asset('public/img/gallery/8.jpg')}}" alt="" width="460px" height="257px">
 						</div>
 					</figure>
 				</div> 
@@ -117,47 +209,53 @@
 			<h3 style="color: #3498db">Thông Tin Đặt Phòng</h3>
 			<div class="form-group">
 				<label>Ngày Đến</label>			
-				<div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-		        	<input class="form-control" type="text" readonly />
+				<div class="input-group date">
+		        	<input class="form-control" type="text" id="Sdate" name="txtSDate" readonly="" value="{{$ngayden}}" />
 		        	<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> 
 				</div>
 			</div>
 			<div class="form-group">
 				<label>Ngày Đi</label>			
-				<div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
-		        	<input class="form-control" type="text" readonly />
+				<div class="input-group date">
+		        	<input class="form-control" type="text" id="Edate" name="txtEDate" readonly="" value="{{$ngaydi}}">
 		        	<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> 
 				</div>
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Người lớn</label>
 				<select name="cboNgLon" id="cboNgLon" class="form-control" style="width: 80px">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
+					<?php
+						$arr_val = array(1,2,3,4,5,6);
+						$arr_nglon = array($nguoilon);
+						if($nguoilon == 0){
+							echo '<option value="1" selected>1</option>'
+								.'<option value="2">2</option>'
+								.'<option value="3">3</option>'
+								.'<option value="4">4</option>'
+							    .'<option value="5">5</option>'
+							    .'<option value="6">6</option>';
+						}else{
+							foreach ($arr_val as $val) {
+								$selected = in_array($val, $arr_nglon) ? 'selected' : '';
+
+								echo '<option value="'.$val.'" '.$selected.'>'.$val.'</option>';
+							}
+						}
+					?>
 				</select>
 			</div>
 			<div class="form-group col-lg-5">
 				<label>Trẻ em</label>
 				<select name="cboTrEm" id="cboTrEm" class="form-control" style="width: 80px">
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
+					<?php
+						$arr_val = array(0,1,2,3,4,5,6);
+						$arr_trem = array($treem);
+						foreach ($arr_val as $val) {
+							$selected = in_array($val, $arr_trem) ? 'selected' : '';
+
+							echo '<option value="'.$val.'" '.$selected.'>'.$val.'</option>';
+						}
+					?>
 				</select>
 			</div>
 			<div class="clearfix"></div>
@@ -170,55 +268,79 @@
 			<h3 style="color: #3498db">Thông Tin Liên Hệ</h3>
 			<div class="form-group">
 				<label>Họ và Tên</label>
-				<input type="text" class="form-control" placeholder="Nhập họ và tên của quý khách">
+				<input type="text" name="hoten" id="HoTen" class="form-control" placeholder="Nhập họ và tên của quý khách">
+				<p id="eroHT" style='color:red;'></p>
 			</div>
 			<div class="form-group">
 				<label>Số Điện Thoại</label>
-				<input type="text" class="form-control" placeholder="Nhập số điện thoại của quý khách" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+				<input type="text" name="sdt" id="SDT" class="form-control" placeholder="Nhập số điện thoại của quý khách" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+				<p id="eroSDT" style='color:red;'></p>
 			</div>
 			<div class="form-group">
 				<label>Email</label>
-				<input type="email" class="form-control" placeholder="Nhập email của quý khách">
+				<input type="email" name="email" id="Email" class="form-control" placeholder="Nhập email của quý khách">
+				<p id="eroEmail" style='color:red;'></p>
 			</div>
 		</div>		
 	</div>
 	<!-- Panel Loai Phong -->
 	<div class="col-lg-7" >
 		<div class="panel-DatPhong" style="margin-top: 0px; padding-top: 1px; padding-bottom: 30px; ">
-			<h3 style="color: #3498db">Loại Phòng</h3>			
-			<div class="col-lg-4 ">
-				<img src="img/room/standard1.jpg" alt="" width="100%" border="1px solid black">
-			</div>
-			<div class="col-lg-4">
-				<p><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Kích thước: 35m<sup>2</sup></p>
-				<p><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Giường: Twin</p>
-		        <p><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Sức chứa: 3 khách</sup></p>
-			</div>
+			<h3 style="color: #3498db">Loại Phòng</h3>	
+
+			<!-- Hiển thị loại phòng -->
+				<div class="col-lg-4 ">
+					<img src="{{ asset('public/img/room/standard1.jpg')}}" alt="" width="100%" border="1px solid black">
+				</div>
+				<div class="col-lg-4">
+					<p id="txtKT"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Kích thước: 35m<sup>2</sup></p>
+					<p id="txtGiuong"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Giường: Twin</p>
+			        <p id="txtSucChua"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Sức chứa: 3 khách</sup></p>
+				</div>
+
+
+			<!-- Cobobox chọn loại phòng -->
 			<div class="container-fluid">	
 				<div class="col-lg-2">
-					<select name="cboLP" id="cboLP" class="form-control" style="width: 180px">
-						<option value="">Standard</option>
-						<option value="">Superior</option>
-						<option value="">Deluxe</option>
-						<option value="">Premium - Villa</option>
-						<option value="">Junior - Villa</option>
+					<select name="loaiphong" id="cboLP" class="form-control" style="width: 200px">
+						<?php
+							$arr = array('LP001','LP002','LP003','LP004','LP005');
+							$arr_malp = array($malp);
+							if($malp == ''){
+									echo '<option value="" selected>[Chọn loại phòng]</option>'
+										.'<option value="LP001">Standard</option>'
+										.'<option value="LP002">Superior</option>'
+										.'<option value="LP003">Deluxe</option>'
+					      				.'<option value="LP004">Premium-Villa</option>'
+					      				.'<option value="LP005">Junior-Villa</option>';
+							}else{
+								foreach ($arr as $val) {									
+									$select = in_array($val,$arr_malp) ? 'selected' : '';
+
+									//Lấy tên loại phòng
+			                        $tenlp = DB::table('loai_phong')->where('malp',$val)->first();
+
+									echo '<option value="'.$val.'" '.$select.'>'.$tenlp->tenlp.'</option>';
+									}
+							}
+						?>
 					</select>
+					<p id="eroLP" style='color:red;'></p>
 				</div>
 				<br>
 				<div class="col-lg-2">
-					<button type="button" class="btn btn-outline btn-DatPhong btn-block" style="margin-top: 58px;width: 180px">Đặt Phòng</button>
+					<button type="button" id="btn-DatPhong" class="btn btn-outline btn-DatPhong btn-block" style="margin-top: 58px;width: 180px">Đặt Phòng</button>
 				</div>
 			</div>
 			<div class="clearfix"></div>
-		</div>
-		
+		</div>		
 	</div>
 
 	<div class="clearfix"></div>	
 	<div id="footer">
 	    <div class="clearfix"></div> 
 	    <div class="col-md-4">
-	    	<a href="about.htm">
+	    	<a href="{{asset('gioithieu')}}">
 	    		<h2>Terracotta Đà Lạt</h2>
 	    	</a>
 	    </div>
@@ -229,39 +351,18 @@
     			<p>Copyright &copy 2017 Terracotta All Rights Reserved.</p>
     		</div>
 			<div class="col-xs-1">
-				<a href="#">
 					<span class="fa fa-facebook-official fa-2x"></span>
-				</a>        
 			</div>
 			<div class="col-xs-1">
-				<a href="#">
 				  <span class="fa fa-instagram fa-2x"></span>
-				</a>
 			</div>
 			<div class="col-xs-1">
-				<a href="#">
 				  <span class="fa fa-youtube-square fa-2x"></span>
-				</a>        
 			</div>
 	    </div>  
     	<div class="clearfix"></div>     	
   	</div><!--  end footer -->
 	
-	
 
-
-
-
-
-
-
-
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/index.js"></script>
 </body>
 </html>

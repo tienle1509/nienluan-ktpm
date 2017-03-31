@@ -24,7 +24,6 @@
 	        interval:   4000    
 	    });
 	    // datepicker
-		
 		$(function () {
                 $("#txtNgayDen").datepicker({
                 	dateFormat : 'dd-mm-yy',
@@ -39,7 +38,7 @@
                     minDate: 'selectedDate',
                     
                 });
-            });
+        });
 	</script>
 
 
@@ -126,6 +125,8 @@
 	    </div>
   	</div>  
  
+<form action="{{action('datPhongController@datPhong')}}" method="post" name="form_menu">
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 	<div class="form-DatPhong">             
 	  <div class="col-xs-1 text-DatPhong text-center">
@@ -133,7 +134,7 @@
 	  </div>
 	  <div class="col-xs-2">
 	    <div  class="input-group date" >
-	        <input class="form-control" type="text" readonly="" id="txtNgayDen"/>
+	        <input class="form-control" type="text" readonly="" id="txtNgayDen" name="txtNgayDen" />
 	        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> 
 	    </div> <!-- datepicker --> 
 	  </div>    
@@ -142,7 +143,7 @@
 	  </div>      
 	  <div class="col-xs-2">                
 	      <div class="input-group date" >
-	        <input class="form-control" type="text" readonly="" id="txtNgayDi"/>
+	        <input class="form-control" type="text" readonly="" id="txtNgayDi" name="txtNgayDi" />
 	        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> 
 	    </div> <!-- datepicker -->
 	  </div>
@@ -151,10 +152,12 @@
 	  </div>
 	  <div class="col-xs-1 col-xs-pull-1">
 	    <select name="cboNgLon" id="cboNgLon" class="form-control">
-
 	      <option value="1">1</option>
 	      <option value="2">2</option>
 	      <option value="3">3</option>
+	      <option value="4">4</option>
+	      <option value="5">5</option>
+	      <option value="6">6</option>
 	    </select>
 	  </div>  
 	  <div class="col-xs-1 col-xs-pull-1 text-DatPhong text-center">
@@ -166,14 +169,18 @@
 	      <option value="1">1</option>
 	      <option value="2">2</option>
 	      <option value="3">3</option>
+	      <option value="4">4</option>
+	      <option value="5">5</option>
+	      <option value="6">6</option>
 	    </select>
 	  </div>
 	  <div class="col-xs-1 col-xs-pull-1 ">
-	    <button type="button" class="btn btn-danger btn-DatNgay" style="margin-top: -4px;width: 200px">
-			Đặt Ngay
-		</button>
+	  	<button type="submit" class="btn btn-danger btn-DatNgay" style="margin-top: -4px;width: 200px">
+				Đặt Ngay
+			</button>
 	  </div>                
 	</div><!-- end Form đặt phòng -->  
+</form>
 
 	
 	@yield('noidung')
@@ -186,7 +193,7 @@
 	<div id="footer">
 	    <div class="clearfix"></div> 
 	    <div class="col-md-4">
-	    	<a href="about.htm">
+	    	<a href="{{asset('gioithieu')}}">
 	    		<h2>Terracotta Đà Lạt</h2>
 	    	</a>
 	    </div>
@@ -197,19 +204,13 @@
     			<p>Copyright &copy 2017 Terracotta All Rights Reserved.</p>
     		</div>
 			<div class="col-xs-1">
-				<a href="#">
-					<span class="fa fa-facebook-official fa-2x"></span>
-				</a>        
+					<span class="fa fa-facebook-official fa-2x"></span>  
 			</div>
 			<div class="col-xs-1">
-				<a href="#">
 				  <span class="fa fa-instagram fa-2x"></span>
-				</a>
 			</div>
 			<div class="col-xs-1">
-				<a href="#">
 				  <span class="fa fa-youtube-square fa-2x"></span>
-				</a>        
 			</div>
 	    </div>  
     	<div class="clearfix"></div>     	
