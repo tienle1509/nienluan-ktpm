@@ -7,6 +7,7 @@ use App\anhdv;
 use File;
 use Response;
 use DB;
+use Validator;
 
 class xoaAjax extends Controller
 {
@@ -73,6 +74,44 @@ class xoaAjax extends Controller
             DB::table('khuyen_mai')->where('makm',$makm)->delete();
             //Xóa khuyến mãi trong bảng chi tiết khuyến mãi
             DB::table('chi_tiet_km')->where('makm',$makm)->delete();
+
+            return Response::json(['success'=>true]);
+        }
+    }
+
+    //ĐẶT PHÒNG
+    public function luuDatPhong(Request $request){
+        $ngayden = Request::get('ngayden');
+        $ngaydi = Request::get('ngaydi');
+        $nguoilon = Request::get('nguoilon');
+        $treem = Request::get('treem');
+        $hoten = Request::get('hoten');
+        $sdt = Request::get('sdt');
+        $email = Request::get('email');
+        $loaiphong = Request::get('loaiphong');
+
+        $v = Validator::make(Request::all(),
+            [
+                'hoten'=>'required',
+                'sdt'=>'required',
+                'email'=>'required|email',
+                'loaiphong'=>'required'
+            ],
+            [
+                'hoten.required'=>'Họ tên không được trống',
+                'sdt.required'=>'Số điện thoại không được trống',
+                'email.required'=>'Email không được rỗng',
+                'email.email'=>'Email không đúng định dạng',
+                'loaiphong.required'=>'Loại phòng không được rỗng'
+            ]);
+
+        if($v->fails()){
+            return Response::json([
+                'success'=>false,
+                'errors'=>$v->errors()->toArray()
+            ]);
+        }else{
+
 
             return Response::json(['success'=>true]);
         }

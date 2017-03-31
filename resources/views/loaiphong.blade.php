@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('public/font-awesome/css/font-awesome.min.css') }}">
 	<link rel="icon" href="{{ asset('public/img/icon.png') }}">
-
+	
     <title>Terracotta Hotel & Resort</title>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -141,14 +141,18 @@
 				</div>		
 			</div>
 		</div>
+		<form action="{{action('datPhongController@datPhong')}}" name="" method="post">
+		<input type="hidden" name="_token" value="{{ csrf_token()}}">
 		<div class="row">
 			<div class="col-md-5">
+				<input type="hidden" name="txtMaLP" value="{{ $room->malp }}">
 				<div class="pull-right">
-					<button type="button" class="btn btn-outline btn-DatPhong "
-					style="width: 290px">Đặt Phòng</button>
+						<button type="submit" class="btn btn-outline btn-DatPhong "
+						style="width: 290px">Đặt Phòng</button>
 				</div>	
 			</div>
 		</div>
+		</form>
 		
 	</div>
 
@@ -163,7 +167,7 @@
 	<div id="footer">
 	    <div class="clearfix"></div> 
 	    <div class="col-md-4">
-	    	<a href="about.htm">
+	    	<a href="{{asset('gioithieu')}}">
 	    		<h2>Terracotta Đà Lạt</h2>
 	    	</a>
 	    </div>
@@ -174,19 +178,13 @@
     			<p>Copyright &copy 2017 Terracotta All Rights Reserved.</p>
     		</div>
 			<div class="col-xs-1">
-				<a href="#">
 					<span class="fa fa-facebook-official fa-2x"></span>
-				</a>        
 			</div>
 			<div class="col-xs-1">
-				<a href="#">
 				  <span class="fa fa-instagram fa-2x"></span>
-				</a>
 			</div>
 			<div class="col-xs-1">
-				<a href="#">
 				  <span class="fa fa-youtube-square fa-2x"></span>
-				</a>        
 			</div>
 	    </div>  
     	<div class="clearfix"></div>     	
@@ -209,22 +207,7 @@
     <script src="{{ asset('public/js/jquery.min.js')}}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>
 	<script>
-		// datepicker
-		$(function () {
-		  $("#datepicker").datepicker({ 
-		        autoclose: true, 
-		        todayHighlight: true
-		  }).datepicker('update', new Date());
-		});
-		$(function () {
-		  $("#datepicker2").datepicker({ 
-		        autoclose: true, 
-		        todayHighlight: true
-		  }).datepicker('update', new Date());
-		});
-
 		// sideshow  
 		$('#CarouselTop').carousel({ 
 	        interval:   4000    

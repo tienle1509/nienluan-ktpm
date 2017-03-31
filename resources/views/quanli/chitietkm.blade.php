@@ -145,18 +145,7 @@
                 </div>
 
                 <!-- Hiển thị hình ảnh từ CSDL-->
-                <div class="row container-fluid">
-                    <p><b>Hình ảnh hiện tại</p>
-                    <div>
-                        <img src="{{ asset('public/khuyenmai/'.$km->anhkm) }}" alt="ảnh" class="anhht">
-                    </div>
-                </div>
-
-                <br>
-                <div class="row container-fluid">
-                    <label>Thay đổi ảnh:</label>
-                    <input type="file" name="imgKm" style="margin-bottom: 5px">
-                </div>
+          
 
 
                 <div class="row">
