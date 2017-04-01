@@ -8,9 +8,9 @@
 		</p>
 	</div>
 	<div class=" col-md-12">
-		<div class="panel-GioiThieu">
-			<div class="container-fluid">
-				<h1 style="color: #dc3522">&nbsp;Dịch vụ</h1>
+		<div class="panel-GioiThieu container-fluid" style="background-color: #2a2c2b">
+			<div class="">
+				<h1 style="color: #d9cb9e">&nbsp;Dịch vụ</h1>
 			</div>
 			<?php
 				$dsdv = DB::table('dich_vu')->get();
@@ -21,9 +21,9 @@
 	            <div class="col-md-4">
 					<div class="panel-DichVu ">
 						
-						<img src="{{ asset('public/dichvu/'.$data->anhdv) }}"> 
+						<a href="{{ asset('chitietdv/'.$data->madv) }}"><img src="{{ asset('public/dichvu/'.$data->anhdv) }}"></a>
 						
-						<h3 class="text-center"><a href="chitietdv/{!!$data->madv!!}">{!! $data->tendv !!}</a></h3>
+						<h3 class="text-center"><a href="{{ asset('chitietdv/'.$data->madv) }}">{!! $data->tendv !!}</a></h3>
 						<p>{!! $data->mota !!}</p>
 						
 					</div>

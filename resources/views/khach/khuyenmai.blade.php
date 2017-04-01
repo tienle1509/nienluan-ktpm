@@ -1,30 +1,38 @@
 @extends('khach_home')
 
 @section('noidung')
-<div class="panel-TrangChu text-center container-fluid" style="  background-color: #2a2c2b; color: #e4d295">
-		<h2>Terracotta Đà Lạt</h2>
+<div class="panel-TrangChu text-center container-fluid" style="  background-color: #2a2c2b; color: #e4d295; margin-bottom: 10px">
+		<h2>Khuyến Mãi</h2>
 		<p>
-		 Một trong những điểm đến lý tưởng dành cho những ai yêu thích thiên nhiên và mong muốn tìm một nơi nghỉ dưỡng đẳng cấp đúng nghĩa.
+		 Nhằm tạo điều kiện nghĩ dưỡng tốt nhất cũng như tri ân cho sự ủng hộ, tin tưởng của quý khách, Terracotta Đà Lạt giới thiệu những chương trình khuyến mãi hấp dẫn và liên tục
 		</p>
 	</div>
-	<div class=" col-md-12">
-		<div class="panel-GioiThieu">
-			<div class="container-fluid">
-				<h1 style="color: #e4d295">&nbsp;Khuyến Mãi</h1>
-			</div>
-			<div class="col-md-4">
-				<div class="panel-DichVu">
-					<img src="img/promotion/promotion1_1.jpg" alt="" >
-					<h3 class="text-center"><a href="#">Honeymoon Package</a></h3>
-					<p>TRỌN GÓI HƯỞNG TUẦN TRĂNG MẬT: Áp dụng đến hết ngày 31/12/2016. Trọn gói không áp dụng vào ngày lễ và cho các chương trình khuyến mãi khác.</p>
-					<a href="#" class="pull-right">Xem thêm <i class="glyphicon glyphicon-menu-right"></i></a>
-					<div class="clearfix"></div>
+	
+	<div class="container-fluid" >
+		<br>
+		<?php
+			$dskm = DB::table('khuyen_mai')->get();
+		?>
+		@foreach ($dskm as $km)
+		
+			<div class="panel-KhuyenMai row">
+				<div class="col-lg-4" style="padding-left: 0px">
+					<img src=" {{ asset('public/khuyenmai/'.$km->anhkm) }}" alt="" >
+				</div>
+				<div class="col-lg-8">
+					<h3 class="text-center">{!! $km->tenkm !!}</h3>
+					<p>{!! $km->noidungkm !!}</p>
+					<p><b>Thời gian khuyến mãi:</b> {!! $km->ngaybd !!} đến {!! $km->ngaykt !!}.</p>				
 				</div>
 			</div>
-
-			<div class="clearfix"></div>
-		</div>
+		
+		@endforeach
+		
+			
+		
+		
 	</div>
+	
 @stop
 
 @section('script')
