@@ -86,6 +86,23 @@ class xoaAjax extends Controller
         }
     }
 
+    //Đổi panel loại phòng khi bấm combobox
+    public function doiPanel(Request $request){
+        if(Request::ajax()){
+            $malp = Request::get('malp');
+
+            if(!empty($malp)){
+                $list_lp = DB::table('loai_phong')->where('malp',$malp)->first();
+
+                return Response::json([
+                    'success'=>true,
+                    'data'=>$list_lp
+                ]);
+            }
+        }
+    }
+
+
     //ĐẶT PHÒNG
     public function luuDatPhong(Request $request){
         $ngayden = Request::get('ngayden');
@@ -125,19 +142,5 @@ class xoaAjax extends Controller
     }
 
 
-    //Đổi panel loại phòng khi bấm combobox
-    public function doiPanel(Request $request){
-        if(Request::ajax()){
-            $malp = Request::get('malp');
-
-            if(!empty($malp)){
-                $list_lp = DB::table('loai_phong')->where('malp',$malp)->first();
-
-                return Response::json([
-                    'success'=>true,
-                    'data'=>$list_lp
-                ]);
-            }
-        }
-    }
+    
 }

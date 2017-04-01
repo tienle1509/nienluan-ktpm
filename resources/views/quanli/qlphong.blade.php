@@ -139,7 +139,7 @@
                                         <td>
                                             <?php 
                                                 if(isset($_GET['page'])){
-                                                    $i = 8*($_GET['page']-1);
+                                                    $i = 10*($_GET['page']-1);
                                                     echo $stt+$i;
                                                 }else
                                                     echo $stt; 

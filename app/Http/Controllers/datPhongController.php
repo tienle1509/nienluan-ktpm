@@ -28,4 +28,6 @@ class datPhongController extends Controller
             return view('khach.datphong')->with('ngayden',$ngayden)->with('ngaydi',$ngaydi)->with('nguoilon',$nguoilon)->with('treem',$treem)->with('malp',$malp);
         }  
     }
+
+    
 }
