@@ -30,6 +30,7 @@ class khuyenMaiRequest extends FormRequest
             'txtChietKhau'=>'required|numeric',
             'txtNoiDung'=>'required',
             'txtLoaiPhong'=>'required',
+            //'imgKM'=>'required|image'
         ];
     }
 
@@ -42,7 +43,9 @@ class khuyenMaiRequest extends FormRequest
             'txtChietKhau.required'=>'Chiết khấu không được trống',
             'txtChietKhau.numeric'=>'Trường này không được nhập kí tự',
             'txtNoiDung.required'=>'Nội dung không được trống',
-            'txtLoaiPhong.required'=>'Chọn ít nhất một loại phòng để áp dụng'
+            'txtLoaiPhong.required'=>'Chọn ít nhất một loại phòng để áp dụng',
+            'imgKM.required'=>'Ảnh khuyến mãi không được trống',
+            //'imgKM.image'=>'Ảnh phải có đuôi jpg, png'
         ];
     }
 }

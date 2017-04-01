@@ -4,6 +4,10 @@
 
 @section('noidung')
 
+<style type="text/css">
+    .anhht {width: 100px; height: 100px; margin-right: 10px;}
+</style>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $("#xoa").click(function(){
@@ -28,7 +32,7 @@
 
 
 
-<form name="form_CTKM" action="{{action('khuyenMaiController@capNhatKM')}}"  method="POST">
+<form name="form_CTKM" action="{{action('khuyenMaiController@capNhatKM')}}"  method="POST" enctype="multipart/form-data">
 
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -145,7 +149,20 @@
                 </div>
 
                 <!-- Hiển thị hình ảnh từ CSDL-->
-          
+                <div class="row container-fluid">
+                    <p><b>Hình ảnh hiện tại</p>
+                    <div>
+                        <img src="{{ asset('public/khuyenmai/'.$km->anhkm) }}" alt="ảnh" class="anhht">
+                    </div>
+                </div>
+
+                <br>
+                <div class="row container-fluid">
+                    <label>Thay đổi ảnh chính</label>
+                    <input type="file" name="imgKM" style="margin-bottom: 5px">
+                </div>
+
+
 
 
                 <div class="row">

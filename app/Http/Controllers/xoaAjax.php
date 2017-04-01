@@ -70,6 +70,13 @@ class xoaAjax extends Controller
         if(Request::ajax()){
             $makm = Request::get('makm');
 
+            //Xóa ảnh trong thư mục public/khuyenmai
+            $anhkm = DB::table('khuyen_mai')->where('makm',$makm)->first();
+            $duongdan = 'public/khuyenmai/'.$anhkm->anhkm;
+            if(File::exists($duongdan)){
+                File::delete($duongdan);
+            }
+
             //Xóa khuyến mãi trong bảng khuyến mãi
             DB::table('khuyen_mai')->where('makm',$makm)->delete();
             //Xóa khuyến mãi trong bảng chi tiết khuyến mãi
@@ -111,9 +118,26 @@ class xoaAjax extends Controller
                 'errors'=>$v->errors()->toArray()
             ]);
         }else{
-
-
+            
+            
             return Response::json(['success'=>true]);
+        }
+    }
+
+
+    //Đổi panel loại phòng khi bấm combobox
+    public function doiPanel(Request $request){
+        if(Request::ajax()){
+            $malp = Request::get('malp');
+
+            if(!empty($malp)){
+                $list_lp = DB::table('loai_phong')->where('malp',$malp)->first();
+
+                return Response::json([
+                    'success'=>true,
+                    'data'=>$list_lp
+                ]);
+            }
         }
     }
 }

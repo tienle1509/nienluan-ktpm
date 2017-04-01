@@ -28,7 +28,7 @@ class themDVRequest extends FormRequest
             'txtMoTa' => 'required',
             'txtNoiDung' => 'required',
             'imgChinh' => 'required|image',
-            'imgAnh'=>'image',
+            //'imgAnh'=>'image',
         ];
     }
 
@@ -40,7 +40,7 @@ class themDVRequest extends FormRequest
             'txtNoiDung.required'=>'Nội dung không được trống',
             'imgChinh.required'=>'Ảnh chính không được bỏ trống',
             'imgChinh.image'=>'Ảnh phải có đuôi jpg, png',
-            'imgAnh.image'=>'Ảnh phải có đuôi jpg, png'
+            //'imgAnh.image'=>'Ảnh phải có đuôi jpg, png'
         ];
     }
 }

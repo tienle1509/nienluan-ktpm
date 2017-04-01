@@ -91,14 +91,43 @@
         	});
         });
 
-        //Thay đổi panel loại phòng khi chọn combobox
-        $("#cboLP").change(function(){
-		    if ($("#cboLP").val() = "LP003" ) {
-		    	$("#txtKT").html('<i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Kích thước: 50 m<sup>2</sup>');
-		    	$("#txtGiuong").html('<i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Giường: 1 giường đôi hoặc 2 giường đơn');
-		    	$("#txtSucChua").html('<i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Sức chứa: 3 khách');
-		    }  
-		});
+     	//Thay đổi panel loại phòng khi chọn combobox
+        $(document).ready(function(){
+        	$("#cboLP").change(function(){
+	        	var url = "http://localhost/nienluan-ktpm/doipanel";
+	        	var malp  = $("#cboLP").val();
+
+	        	$.ajax({
+	        		url : url,
+	        		type : "GET",
+	        		dataType : "JSON",
+	        		data : {"malp":malp},
+	        		success : function(result){
+	        			if(result.success){
+	        				var kichthuoc  = '';
+	        				var giuong = '';
+	        				var succhua = '';
+	        				var anh = '';
+	        				$.each(result.data,function(index,item){
+	        					if(index == 'dientich')
+	        						kichthuoc = '<i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Kích thước: '+ item + ' m<sup>2</sup>';
+	        					if(index == 'giuong')
+	        						giuong = '<i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Giường: ' + item;
+	        					if(index == 'succhua')
+	        						succhua = '<i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Sức chứa: '+item+' khách';
+	        					if(index == 'tenanh')
+	        						var duongdan = 'public/img/room/'+item;
+	        						anh = '<img src="'+duongdan+'" alt="" width="100%" border="1px solid black">';
+	        				});
+	        			$("#txtKT").html(kichthuoc);
+	        			$("#txtSucChua").html(succhua);
+	        			$("#txtGiuong").html(giuong);
+	        			$("#anhLP").html(anh);
+	        			}
+	        		}
+	        	});      	
+			}); 
+        }); 
 	</script>
 
 
@@ -288,15 +317,35 @@
 		<div class="panel-DatPhong" style="margin-top: 0px; padding-top: 1px; padding-bottom: 30px; ">
 			<h3 style="color: #3498db">Loại Phòng</h3>	
 
+
+
 			<!-- Hiển thị loại phòng -->
-				<div class="col-lg-4 ">
-					<img src="{{ asset('public/img/room/standard1.jpg')}}" alt="" width="100%" border="1px solid black">
-				</div>
-				<div class="col-lg-4">
-					<p id="txtKT"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Kích thước: 35m<sup>2</sup></p>
-					<p id="txtGiuong"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Giường: Twin</p>
-			        <p id="txtSucChua"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Sức chứa: 3 khách</sup></p>
-				</div>
+			<?php
+				if($malp == ''){
+					echo '<div id="anhLP" class="col-lg-4 ">'
+							.'<img src="public/img/gallery/1.jpg" alt="" width="100%" border="1px solid black">'
+						.'</div>'
+						.'<div class="col-lg-4">'
+							.'<p id="txtKT"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Kích thước: </p>'
+							.'<p id="txtGiuong"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Giường: </p>'
+					        .'<p id="txtSucChua"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Sức chứa: </p>'
+						.'</div>';
+				}else{
+					$ds = DB::table('loai_phong')->where('malp',$malp)->first();
+					$duongdan = 'public/img/room/'.$ds->tenanh;
+
+					echo '<div id="anhLP" class="col-lg-4 ">'
+							.'<img src="'.$duongdan.'" alt="" width="100%" border="1px solid black">'
+						.'</div>'
+						.'<div class="col-lg-4">'
+							.'<p id="txtKT"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Kích thước: '.$ds->dientich.'</p>'
+							.'<p id="txtGiuong"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Giường: '.$ds->giuong.'</p>'
+					        .'<p id="txtSucChua"><i class="glyphicon glyphicon-menu-right" style="color: green;"></i> Sức chứa: '.$ds->succhua.'</p>'
+						.'</div>';
+				}
+			?>
+
+
 
 
 			<!-- Cobobox chọn loại phòng -->
@@ -362,7 +411,5 @@
 	    </div>  
     	<div class="clearfix"></div>     	
   	</div><!--  end footer -->
-	
-
 </body>
 </html>
