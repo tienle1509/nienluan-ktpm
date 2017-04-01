@@ -111,9 +111,26 @@ class xoaAjax extends Controller
                 'errors'=>$v->errors()->toArray()
             ]);
         }else{
-
-
+            
+            
             return Response::json(['success'=>true]);
+        }
+    }
+
+
+    //Đổi panel loại phòng khi bấm combobox
+    public function doiPanel(Request $request){
+        if(Request::ajax()){
+            $malp = Request::get('malp');
+
+            if(!empty($malp)){
+                $list_lp = DB::table('loai_phong')->where('malp',$malp)->first();
+
+                return Response::json([
+                    'success'=>true,
+                    'data'=>$list_lp
+                ]);
+            }
         }
     }
 }

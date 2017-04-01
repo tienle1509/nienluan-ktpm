@@ -65,6 +65,8 @@ Route::get('junior',function(){
 //ĐẶT PHÒNG
 Route::post('datphong',['uses'=>'datPhongController@datPhong']);
 Route::get('datphong',['uses'=>'xoaAjax@luuDatPhong']);
+//Thay đổi panel loại phòng khi bấm button
+Route::get('doipanel',['uses'=>'xoaAjax@doiPanel']);
 
 
 
@@ -122,5 +124,4 @@ Route::group(['prefix'=>'quanli', 'middleware'=>'auth'],function(){
 }); 
 
 Route::get('dangxuat',['uses'=>'Auth\LoginController@getDangXuat']);
-
 
