@@ -70,6 +70,13 @@ class xoaAjax extends Controller
         if(Request::ajax()){
             $makm = Request::get('makm');
 
+            //Xóa ảnh trong thư mục public/khuyenmai
+            $anhkm = DB::table('khuyen_mai')->where('makm',$makm)->first();
+            $duongdan = 'public/khuyenmai/'.$anhkm->anhkm;
+            if(File::exists($duongdan)){
+                File::delete($duongdan);
+            }
+
             //Xóa khuyến mãi trong bảng khuyến mãi
             DB::table('khuyen_mai')->where('makm',$makm)->delete();
             //Xóa khuyến mãi trong bảng chi tiết khuyến mãi

@@ -67,7 +67,7 @@ class qlDichVuController extends Controller
         //Thêm ảnh chính vô thư mục public/dichvu/
         $request->file('imgChinh')->move('public/dichvu/',$tenanhdv);
 
-    	//Thêm ảnh vào bảng hình ảnh
+    	//Thêm ảnh phụ vào bảng hình ảnh
     	if($request->file('imgAnh') != ''){
     		foreach ($request->file('imgAnh') as $file) {
     			if(isset($file)){

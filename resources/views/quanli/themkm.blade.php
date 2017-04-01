@@ -21,7 +21,7 @@
                     </div>
                 </div>
 
-                <form name="addKM" action="{{ action('khuyenMaiController@luuKM') }}" method="post">
+                <form name="addKM" action="{{ action('khuyenMaiController@luuKM') }}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{ csrf_token()}}">
 
                     <div class="row">
@@ -104,8 +104,8 @@
                     </div>
                     <div class="row container-fluid">
                         <label>Chọn ảnh :</label>
-                        <input type="file" name="imgKm" style="margin-bottom: 5px">
-                        <p style='color:red;'>{{$errors->first('imgKm')}}</p>
+                        <input type="file" name="imgKM" style="margin-bottom: 5px">
+                        <p style='color:red; margin-bottom: -15px; margin-top: 5px'>{{$errors->first('imgKM')}}</p>
                     </div>
 
                     <div class="row">

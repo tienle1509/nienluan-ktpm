@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use DB;
 use App\chitietkm; 
 use Validator;
+use File;
 
 class khuyenMaiController extends Controller
 {
@@ -50,6 +51,9 @@ class khuyenMaiController extends Controller
         $ngaytao = Carbon::now();
         $makm = $this->maKM();
 
+        //Lấy tên ảnh khuyến mãi 
+        $tenanhkm = $request->file('imgKM')->getClientOriginalName();
+
         //Thêm vào bảng khuyến mãi
         $km = new khuyenmai();
         $km->makm = $makm;
@@ -60,8 +64,12 @@ class khuyenMaiController extends Controller
         $km->chietkhau = $request->txtChietKhau;
         $km->mota = $request->txtMoTa;
         $km->noidungkm = $request->txtNoiDung;
+        $km->anhkm = $tenanhkm;
         $km->maql = $maql;
-        $km->save();   
+        $km->save();  
+
+        //Thêm ảnh vô thư mục public/khuyenmai
+        $request->file('imgKM')->move('public/khuyenmai/',$tenanhkm); 
 
     	//Thêm vào bảng chi tiết khuyến mãi
         foreach ($request->txtLoaiPhong as $val) {
@@ -70,7 +78,7 @@ class khuyenMaiController extends Controller
             $chitiet->malp = $val;
             $chitiet->save();
         }   
-        return redirect('quanli/khuyenmai');
+        return redirect('quanli/khuyenmai');     
     }
 
     public function chiTietKM($makm){
@@ -89,8 +97,7 @@ class khuyenMaiController extends Controller
         $ngaykt = date('Y-m-d',strtotime($request->txtNgayKT));
         $chietkhau = $request->txtChietKhau;
         $noidungkm = $request->txtNoiDung;
-
-
+        $mota = $request->txtMoTa;
 
         $v = Validator::make($request->all(),
             [
@@ -106,7 +113,7 @@ class khuyenMaiController extends Controller
                 'txtNgayKT.required'=>'Ngày kết thúc không được rỗng',
                 'txtNgayKT.after'=>'Ngày kết thúc phải lớn hơn ngày bắt đầu',
                 'txtChietKhau.required'=>'Chiết khấu không được rỗng',
-                'txtNoiDung.required'=>'Nội dung không được rỗng'
+                'txtNoiDung.required'=>'Nội dung không được rỗng',
             ]);
         
         if($v->fails()){
@@ -124,6 +131,47 @@ class khuyenMaiController extends Controller
                 $chitiet->makm = $makm;
                 $chitiet->malp = $val;
                 $chitiet->save();
+            }
+
+            //Cập nhật trong bảng khuyến mãi
+            if(!empty($request->file('imgKM'))){
+                //xóa ảnh khuyến mãi cũ trong thư mục public/khuyenmai
+                $anhcu = DB::table('khuyen_mai')->where('makm',$makm)->first();
+                $duongdan = 'public/khuyenmai/'.$anhcu->anhkm;
+                if(File::exists($duongdan)){
+                    File::delete($duongdan);
+                }
+
+                //Lấy tên ảnh khuyến mãi mới
+                $anhmoi = $request->file('imgKM')->getClientOriginalName();
+
+                //Thêm ảnh chính mới vào thư mục
+                $request->file('imgKM')->move('public/khuyenmai/',$anhmoi);
+
+                //Cập nhật lại csdl
+                DB::table('khuyen_mai')->where('makm',$makm)->update([
+                    'tenkm'=>$tenkm,
+                    'ngaytao'=>$ngaytao,
+                    'ngaybd'=>$ngaybd,
+                    'ngaykt'=>$ngaykt,
+                    'chietkhau'=>$chietkhau,
+                    'mota'=>$mota, 
+                    'noidungkm'=>$noidungkm,
+                    'anhkm'=>$anhmoi ,
+                    'maql'=>$maql
+                ]);
+            }else{
+                //Cập nhật lại csdl
+                DB::table('khuyen_mai')->where('makm',$makm)->update([
+                    'tenkm'=>$tenkm,
+                    'ngaytao'=>$ngaytao,
+                    'ngaybd'=>$ngaybd,
+                    'ngaykt'=>$ngaykt,
+                    'chietkhau'=>$chietkhau,
+                    'mota'=>$mota, 
+                    'noidungkm'=>$noidungkm,
+                    'maql'=>$maql
+                ]);
             }
 
             return redirect('quanli/khuyenmai');
