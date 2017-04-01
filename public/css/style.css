@@ -7,7 +7,7 @@ body {
 	bottom: 1px;
 }
 #miniCarousel img{
-	height: 250px;
+	height: 350px;
 }
 
 /* /navbar */
@@ -129,21 +129,43 @@ body {
 	font-size: 16px;
 	font-family: Verdana, sans-serif; 
 	line-height: 24px;
+	
+}
+.panel-GioiThieu {
 	background-color: #fff;
 }
+.panel-KhuyenMai{
+	margin: 0px 10px 25px 10px;
+	padding: 0px;
+	color: #1e1e20;
+	background-color: #f2f2f2;
+	position: relative;
+	box-shadow: 0px 1px 5px rgba(0,0,0,0.5);
+	font-size: 16px;
+	font-family: Verdana, sans-serif; 
+	line-height: 24px;
+}
+.panel-GopY {
+	background-color: #faf6bd;
+	color: black;
+}
+
 .panel-GioiThieu img {
 	width: 100%;
 	height: 100%;	
 }
-.panel-GioiThieu p , .panel-GopY p{
+.panel-KhuyenMai img {
+	width: 100%;
+	height: 300px;	
+}
+.panel-GioiThieu p , .panel-GopY p,.panel-KhuyenMai p{
 	margin: 20px 10px 20px 10px;
 }
-
-.panel-GopY {
-	
-	background-color: #faf6bd;
-	color: black;
+.panel-KhuyenMai h3 {
+	color: #046380;
 }
+
+
 
 .panel-DatPhong{
 	padding: 20px 20px 20px 20px;
@@ -194,7 +216,7 @@ body {
 	padding: 0px;
 	margin: 10px;
 	margin-bottom: 25px;
-	border: 1px solid #33332d;
+	box-shadow: 0px 1px 5px rgba(10,10,10,0.3);
 	line-height: 25px;
 	font-family: Arial, Times, sans-serif;
 	color: #1e1e20;
@@ -213,14 +235,6 @@ body {
 	border-bottom: 1px solid gray;
 }
 
-.panel-DichVu a{
-	position: absolute;
-	bottom: 20px;
-	right: 30px;
-	margin: 0px 10px 10px 10px; 
-	font-size: 16px;
-}
-
 .panel-DichVu h3 a{
 	position: static;
 	font-size: 25px;
@@ -231,7 +245,6 @@ body {
 	text-decoration: none;
 	color: #dc3522;
 }
-
 
 .form-DatPhong {
 	padding: 12px 5px 15px 5px;	

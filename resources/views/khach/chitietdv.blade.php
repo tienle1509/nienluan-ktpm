@@ -8,14 +8,13 @@
 		</p>
 	</div>
 	<div class="container-fluid">
-		<div class="container-fluid panel-GioiThieu">
-			<h1 style="color: #1e1e20">&nbsp;{!! $dv->tendv !!}</h1>
+		<div class="container-fluid panel-GioiThieu" style="background-color: #f6f6f6">
+			<h1 style="color: #dc3522; padding-left: 30px">{!! $dv->tendv !!}</h1>
 
-			<div id="" class="col-md-4">
-				<br>
+			<div id="" class="col-md-6 col-md-offset-3">
 				<br>
 				<div id="miniCarousel" class="carousel slide">
-			      	<ol class="carousel-indicators"> 
+			      	<ol class="carousel-indicators" style="display: block"> 
 			           <li data-target="#miniCarousel" data-slide-to="0" class="active"></li> 	           
 			            
 			            <?php
@@ -39,13 +38,20 @@
                         @endforeach
                
                    	</div>
-			      	 
+			      	 <a class="left carousel-control" href="#miniCarousel" role="button" data-slide="prev">
+						<span class="icon-prev" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#miniCarousel" role="button" data-slide="next">
+						<span class="icon-next" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a> 
 			    </div>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-10 col-md-offset-1">
 				<p>{!! $dv->mota !!}</p>
 				{!! $dv->noidungdv !!}
-
+				<br>
 			</div>
 			
 		</div>	
