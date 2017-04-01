@@ -68,7 +68,9 @@ Route::get('datphong',['uses'=>'xoaAjax@luuDatPhong']);
 //Thay đổi panel loại phòng khi bấm button
 Route::get('doipanel',['uses'=>'xoaAjax@doiPanel']);
 
-
+Route::get('datphongthanhcong',function(){
+	return view('khach.datphongthanhcong');
+});
 
 
 //TRANG QUẢN LÍ
