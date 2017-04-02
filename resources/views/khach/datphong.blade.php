@@ -54,16 +54,16 @@
         		var hoten = $("#HoTen").val();
         		var sdt = $("#SDT").val();
         		var email = $("#Email").val();
-        		var loaiphong = $("#cboLP").val();
+        		var malp = $("#cboLP").val();
         		//alert($loaiphong);
 
         		$.ajax({
         			url : url,
         			type : "GET",
         			dataType : "JSON",
-        			data : {"ngayden":ngayden, "ngaydi":ngaydi, "nguoilon":nguoilon, "treem":treem, "hoten":hoten, "sdt":sdt, "email":email, "loaiphong":loaiphong},
+        			data : {"ngayden":ngayden, "ngaydi":ngaydi, "nguoilon":nguoilon, "treem":treem, "hoten":hoten, "sdt":sdt, "email":email, "malp":malp},
         			success : function(result){
-        				if(!result.success){
+        				if(result.success == false){
         					var eroHT = '';
         					var eroSDT = '';
         					var eroEmail = '';
@@ -75,14 +75,18 @@
         							eroSDT = item;
         						if(index == 'email')
         							eroEmail = item;
-        						if(index == 'loaiphong')
+        						if(index == 'malp')
         							eroLP = item;
         					});
         					$("#eroHT").html(eroHT);
         					$("#eroSDT").html(eroSDT);
         					$("#eroEmail").html(eroEmail);
         					$("#eroLP").html(eroLP);
-        				}else{
+        				}
+        				if(result.success == 'het phong'){
+        					alert('Hết phòng ! Qúy vui lòng chọn phòng khác');	
+        				}
+        				if(result.success == true){
         					alert('Đặt phòng thành công !');
         					location = "http://localhost/nienluan-ktpm/home";
         				}
@@ -351,7 +355,7 @@
 			<!-- Cobobox chọn loại phòng -->
 			<div class="container-fluid">	
 				<div class="col-lg-2">
-					<select name="loaiphong" id="cboLP" class="form-control" style="width: 200px">
+					<select name="malp" id="cboLP" class="form-control" style="width: 200px">
 						<?php
 							$arr = array('LP001','LP002','LP003','LP004','LP005');
 							$arr_malp = array($malp);

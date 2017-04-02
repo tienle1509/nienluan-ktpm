@@ -7,7 +7,7 @@
 <script type="text/javascript">
     //Bắt sự kiện khi bấm button cập nhật
     $(document).ready(function(){
-        $("#btncapNhat").click(function(){
+        $(".btncapNhat").click(function(){
             var url = "http://localhost/nienluan-ktpm/quanli/qlphong/luucapnhatttphong";
             //var _token = $("form[name='form_DSP']").find("input[name='_token']").val();
             //Tại vị trí btt  chọn tr đầu tiên tìm cái ô (td) ở cột thứ 2 lấy giá trị
@@ -127,7 +127,7 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-success " id="btncapNhat">
+                                                    <button class="btn btn-success btncapNhat" id="btncapNhat">
                                                     <i class="fa fa-refresh"></i>Cập nhật
                                                     </button>
                                                 </td>

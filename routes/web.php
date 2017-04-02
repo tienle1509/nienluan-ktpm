@@ -125,3 +125,158 @@ Route::group(['prefix'=>'quanli', 'middleware'=>'auth'],function(){
 
 Route::get('dangxuat',['uses'=>'Auth\LoginController@getDangXuat']);
 
+
+
+
+
+//CÁC VÍ DỤ
+Route::get('sd',function(){
+	$a = '2-4-2017';
+	echo 'Ngày hôm nay : '.$a.'<br>';
+	$a1 = '2-4-2017';
+	echo 'Ngày biến a1 : '.$a1.'<br>';
+	echo '<hr>';
+	$b = '2-4-2017';
+	echo 'Ngày hôm nay : '.$b.'<br>';
+	$b1 = '2-4-2017';
+	echo 'Ngày biến a1 : '.$b1.'<br>';
+	if((date('d-m-Y',strtotime($a)) > date('d-m-Y',strtotime($b1))) || (date('d-m-Y',strtotime($a1)) < date('d-m-Y',strtotime($b))))
+		echo 'ĐIỀU KIỆN ĐÚNG';
+	else
+		echo 'ĐIỀU KIỆN SAI';
+
+});
+
+Route::get('li',function(){
+	$ds_maphong = DB::table('phong')->where('malp','LP001')->where('tinhtrang',0)->get();
+	foreach ($ds_maphong as $key => $val1) {
+                    //Lấy danh sách mã phòng trong bảng chi tiết đặt phòng
+                    $maphong_datphong = DB::table('chitiet_datphong')->where('maphong',$val1->maphong)->get();  
+                    foreach ($maphong_datphong as $key => $val2) {
+                        //Không trùng
+                        echo 'Ngày đi trong csdl : '.$val2->maphong.'<br>';
+                        if((date('d-m-Y',strtotime('3-4-2017')) > date('d-m-Y',strtotime($val2->ngaydi))) 
+                        || (date('d-m-Y',strtotime('3-4-2017')) < date('d-m-Y',strtotime($val2->ngayden)))
+
+                        	){
+                        	//echo $val2->maphong;
+                        	ECHO 'ĐÚNG';
+
+                        }
+                        else
+                			echo 'sai';
+                    }
+                }
+});
+
+Route::get('ha',function(){
+	$ds_maphong = DB::table('phong')->where('malp','LP003')->where('tinhtrang',0)->get();
+	//$co = count($ds_maphong);
+            $arr_maphong_cu = array();
+            foreach ($ds_maphong as $key => $val) {
+                $arr_maphong_cu[] = $val->maphong;
+            }
+    $c = count($arr_maphong_cu);
+    echo $c.'<hr>';
+    echo '<pre>';
+    print_r($arr_maphong_cu);
+    echo '<hr>';
+
+
+    //Kiểm tra dữ liệu trong bảng chi tiết đặt phòng
+            $ds_ctdatphong = DB::table('chitiet_datphong')->distinct()->where('malp','LP003')->get();
+            $ds = DB::table('chitiet_datphong')->distinct('maphong')->where('malp','LP003')->count('maphong');
+            echo 'Số mã : '.$ds;
+            $arr_map_ctdp = array();
+            foreach ($ds_ctdatphong as $key => $val) {
+                $arr_map_ctdp[] = $val->maphong;
+            }
+
+		$c1 = count($arr_map_ctdp);
+		    echo $c1.'<hr>';
+		    echo '<pre>';
+		    print_r($arr_map_ctdp);
+		    echo '<hr>';
+	if($ds < $c){
+		foreach ($arr_maphong_cu as $value) {
+			$t = in_array($value, $arr_map_ctdp) ? 'trùng' : $value;
+			//echo $t.'<hr>';
+
+			if($t != 'trùng'){
+				//echo 'hi';
+				echo $t.'<hr>';
+				echo 'Vòng lặp tìm trùng';
+				break;
+			}					
+		}	
+	}else{
+		$f = 0;
+		$kq = 0;
+		foreach ($ds_maphong as $key => $val1) {
+		$maphong_datphong = DB::table('chitiet_datphong')->distinct('maphong')->where('maphong',$val1->maphong)->get();
+			
+			foreach ($maphong_datphong as $key => $val2) {
+				echo $val2->maphong.'<br>';
+				if($val2->maphong == 'DE06'){
+					$f = 1;
+					$kq = 1;
+					break;
+				}
+			}
+			if ($f==1) break;
+		}
+		if($kq != 1)
+			echo 'KHÔNG ';
+	}
+
+	
+});
+
+
+
+Route::get('ka',function(){
+	//Lấy danh sách phòng theo mã loại phòng khi khách chọn
+            $ds_maphong = DB::table('phong')->where('malp','LP001')->where('tinhtrang',0)->get();
+            //Đếm số mã phòng
+            $count_macu = count($ds_maphong);
+            echo 'Số mã phòng cũ : '.$count_macu.'<br>';
+
+            $arr_maphong_cu = array();  //Mảng chứa mã loại phòng trong bảng phòng
+            foreach ($ds_maphong as $key => $val) {
+                $arr_maphong_cu[] = $val->maphong;
+            }
+            echo '<pre>';
+            print_r($arr_maphong_cu);
+            echo '<hr>';
+
+            //Kiểm tra dữ liệu trong bảng chi tiết đặt phòng
+            $ds_ctdatphong = DB::table('chitiet_datphong')->where('malp','LP001')->get();
+            //Đếm số mã phòng trong bảng chi tiết đặt phòng
+            $count_ma_ctdp = DB::table('chitiet_datphong')->distinct()->where('malp','LP001')->count('maphong');
+            echo 'Số mã trong bảng chi tiết : '.$count_ma_ctdp.'<br>';
+            $arr_map_ctdp = array(); //Mảng chứa mã loại phòng trong bảng chi tiết đặt phòng
+            foreach ($ds_ctdatphong as $key => $val) {
+                $arr_map_ctdp[] = $val->maphong;
+            }
+            echo '<pre>';
+            print_r($arr_map_ctdp);
+            echo '<hr>';
+
+            /*SO SÁNH MÃ PHÒNG CÓ SẴN VỚI MÃ PHÒNG TRONG BẢNG CHI TIẾT
+              NẾU CHƯA CÓ THÌ LẤY RA
+              ĐỂ THÊM HẾT TẤT CẢ CÁC PHÒNG VÀO BẢNG CHI TIẾT
+              (LẤY HẾT PHÒNG TRỐNG THÊM VÔ)
+            */
+            if($count_ma_ctdp < $count_macu){
+                foreach ($arr_maphong_cu as $val) {
+                    //Không trùng thì lấy mã phòng ra
+                    $trung = in_array($val, $arr_map_ctdp) ? '' : $val;
+                    
+                    if($trung != ''){
+                        echo 'mã loại : '.$val;
+
+                        break;
+                    }
+                }
+            }
+});

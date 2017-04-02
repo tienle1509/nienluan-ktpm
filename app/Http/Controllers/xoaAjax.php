@@ -8,6 +8,9 @@ use File;
 use Response;
 use DB;
 use Validator;
+use Carbon\Carbon;
+use App\chitietdatphong;
+use App\khachhang;
 
 class xoaAjax extends Controller
 {
@@ -102,43 +105,194 @@ class xoaAjax extends Controller
         }
     }
 
+    //Mã khách hàng tự tăng 
+    public function maKH(){
+        $list_makh = DB::table('khach_hang')->select('makh')->get();
+        $max = 0;
+        foreach ($list_makh as $value) {
+            $catchuoi = substr($value->makh, 2);
+            if($catchuoi > $max)
+                $max = $catchuoi;
+        }
+        //echo '<pre>';
+        //print_r($makh);
+        $so = $max+1;
+        if($so < 10){
+            $makh = 'KH0'.$so;
+        }else{
+            $makh = 'KH'.$so;
+        }
+        return $makh;
+    }
+
+    //Mã chi tiết đặt phòng tự tăng
+    public function maCT(){
+        $list_mact = DB::table('chitiet_datphong')->select('mact')->get();
+        $max = 0;
+        foreach ($list_mact as $value) {
+            $catchuoi = substr($value->mact, 2);
+            if($catchuoi > $max)
+                $max = $catchuoi;
+        }
+        $so = $max + 1;
+        if($so < 10){
+            $mact = 'DP0'.$so;
+        }else{
+            $mact = 'DP'.$so;
+        }
+        return $mact;
+    }
+
 
     //ĐẶT PHÒNG
     public function luuDatPhong(Request $request){
-        $ngayden = Request::get('ngayden');
-        $ngaydi = Request::get('ngaydi');
-        $nguoilon = Request::get('nguoilon');
-        $treem = Request::get('treem');
-        $hoten = Request::get('hoten');
-        $sdt = Request::get('sdt');
-        $email = Request::get('email');
-        $loaiphong = Request::get('loaiphong');
+        if(Request::ajax()){
+            $ngayden = Request::get('ngayden');
+            $ngaydi = Request::get('ngaydi');
+            $nguoilon = Request::get('nguoilon');
+            $treem = Request::get('treem');
+            $hoten = Request::get('hoten');
+            $sdt = Request::get('sdt');
+            $email = Request::get('email');
+            $malp = Request::get('malp');
 
-        $v = Validator::make(Request::all(),
-            [
-                'hoten'=>'required',
-                'sdt'=>'required',
-                'email'=>'required|email',
-                'loaiphong'=>'required'
-            ],
-            [
-                'hoten.required'=>'Họ tên không được trống',
-                'sdt.required'=>'Số điện thoại không được trống',
-                'email.required'=>'Email không được rỗng',
-                'email.email'=>'Email không đúng định dạng',
-                'loaiphong.required'=>'Loại phòng không được rỗng'
-            ]);
+            $mact = $this->maCT();
+            $makh = $this->maKH();
+            $ngaydat = Carbon::now();
 
-        if($v->fails()){
-            return Response::json([
-                'success'=>false,
-                'errors'=>$v->errors()->toArray()
-            ]);
-        }else{
-            
-            
-            return Response::json(['success'=>true]);
+            $v = Validator::make(Request::all(),
+                [
+                    'hoten'=>'required',
+                    'sdt'=>'required|max:11',
+                    'email'=>'required|email',
+                    'malp'=>'required'
+                ],
+                [
+                    'hoten.required'=>'Họ tên không được trống',
+                    'sdt.required'=>'Số điện thoại không được trống',
+                    'sdt.max'=>'Số điện thoại không đúng',
+                    'email.required'=>'Email không được rỗng',
+                    'email.email'=>'Email không đúng định dạng',
+                    'malp.required'=>'Loại phòng không được rỗng'
+                ]);
+
+            if($v->fails()){
+                return Response::json([
+                    'success'=>false,
+                    'errors'=>$v->errors()->toArray()
+                ]);
+            }
+
+            //Lấy danh sách phòng theo mã loại phòng khi khách chọn
+            $ds_maphong = DB::table('phong')->where('malp',$malp)->where('tinhtrang',0)->get();
+            //Đếm số mã phòng
+            $count_macu = count($ds_maphong);
+
+            $arr_maphong_cu = array();  //Mảng chứa mã loại phòng trong bảng phòng
+            foreach ($ds_maphong as $key => $val) {
+                $arr_maphong_cu[] = $val->maphong;
+            }
+
+            //Kiểm tra dữ liệu trong bảng chi tiết đặt phòng
+            $ds_ctdatphong = DB::table('chitiet_datphong')->where('malp',$malp)->get();
+            //Đếm số mã phòng trong bảng chi tiết đặt phòng
+            $count_ma_ctdp = DB::table('chitiet_datphong')->distinct()->where('malp',$malp)->count('maphong');
+
+            $arr_map_ctdp = array(); //Mảng chứa mã loại phòng trong bảng chi tiết đặt phòng
+            foreach ($ds_ctdatphong as $key => $val) {
+                $arr_map_ctdp[] = $val->maphong;
+            }
+
+            /*SO SÁNH MÃ PHÒNG CÓ SẴN VỚI MÃ PHÒNG TRONG BẢNG CHI TIẾT
+              NẾU CHƯA CÓ THÌ LẤY RA
+              ĐỂ THÊM HẾT TẤT CẢ CÁC PHÒNG VÀO BẢNG CHI TIẾT
+              (LẤY HẾT PHÒNG TRỐNG THÊM VÔ)
+            */
+            if($count_ma_ctdp < $count_macu){
+                foreach ($arr_maphong_cu as $val) {
+                    //Không trùng thì lấy mã phòng ra
+                    $trung = in_array($val, $arr_map_ctdp) ? '' : $val;
+                    
+                    if($trung != ''){
+                        //Thêm dữ liệu vào bảng chi tiết đặt phòng
+                        $ctDatPhong = new chitietdatphong();
+                        $ctDatPhong->mact = $mact;
+                        $ctDatPhong->ngaydat = $ngaydat;
+                        $ctDatPhong->ngayden = date('Y-m-d',strtotime($ngayden));
+                        $ctDatPhong->ngaydi = date('Y-m-d',strtotime($ngaydi));
+                        $ctDatPhong->songuoilon = $nguoilon;
+                        $ctDatPhong->sotreem = $treem;
+                        $ctDatPhong->xacnhan = 0;
+                        $ctDatPhong->malp = $malp;
+                        $ctDatPhong->maphong = $val;
+                        $ctDatPhong->makh = $makh;
+                        $ctDatPhong->maql = '';
+                        $ctDatPhong->save();
+
+                        //Thêm dữ liệu vô bảng khách hàng
+                        $kh = new khachhang();
+                        $kh->makh = $makh;
+                        $kh->tenkh = $hoten;
+                        $kh->email = $email;
+                        $kh->sdt = $sdt;
+                        $kh->save();
+
+                        return Response::json(['success'=>true]);
+
+                        break;
+                    }
+                }
+            }else{           
+                /*SAU KHI HẾT PHÒNG TRỐNG THÌ KIỂM TRA NGÀY THÁNG
+                  SAU ĐÓ CHỌN RA PHÒNG TRỐNG THEO NGÀY THÁNG ĐỂ THÊM VÔ
+                */
+                    
+                $flag = 0;
+                $kq = 0;
+                foreach ($ds_maphong as $key => $val1) {
+                    //Lấy danh sách mã phòng trong bảng chi tiết đặt phòng
+                    $maphong_datphong = DB::table('chitiet_datphong')->where('maphong',$val1->maphong)->get();  
+                    foreach ($maphong_datphong as $key => $val2) {
+                        //Không trùng
+                        if((date('d-m-Y',strtotime($ngayden)) > date('d-m-Y',strtotime($val2->ngaydi))) || (date('d-m-Y',strtotime($ngaydi)) < date('d-m-Y',strtotime($val2->ngayden)))){
+                            $flag =1;
+                            $kq = 1;
+                            //Thêm dữ liệu vào bảng chi tiết đặt phòng
+                            $ctDatPhong = new chitietdatphong();
+                            $ctDatPhong->mact = $mact;
+                            $ctDatPhong->ngaydat = $ngaydat;
+                            $ctDatPhong->ngayden = date('Y-m-d',strtotime($ngayden));
+                            $ctDatPhong->ngaydi = date('Y-m-d',strtotime($ngaydi));
+                            $ctDatPhong->songuoilon = $nguoilon;
+                            $ctDatPhong->sotreem = $treem;
+                            $ctDatPhong->xacnhan = 0;
+                            $ctDatPhong->malp = $malp;
+                            $ctDatPhong->maphong = $val2->maphong;
+                            $ctDatPhong->makh = $makh;
+                            $ctDatPhong->maql = '';
+                            $ctDatPhong->save();
+
+                            //Thêm dữ liệu vô bảng khách hàng
+                            $kh = new khachhang();
+                            $kh->makh = $makh;
+                            $kh->tenkh = $hoten;
+                            $kh->email = $email;
+                            $kh->sdt = $sdt;
+                            $kh->save();
+
+                            return Response::json(['success'=>true]);
+                            break;
+                        }
+                    }
+                   if($flag ==1 ) 
+                    break;
+                }
+                //Nếu xét hết tất cả các phòng không thỏa đk thì hết phòng loại đó
+                if($kq != 1)
+                    return Response::json(['success'=>'het phong']);
+            }
         }
+            
     }
 
 
