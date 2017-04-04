@@ -40,9 +40,13 @@
     <!-- ajax -->
     <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+    <!-- datepicker -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+
     <!-- ckeditor -->
     <script src="{{ asset('public/ckeditor/ckeditor.js') }}"></script>
-    <link rel="stylesheet prefetch" href="{{ asset('public/css/datepicker.css') }}">
     <!-- fileinput plugins -->
     <link href="{{ asset('public/css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -55,6 +59,24 @@
     <title>Admin - Terracotta Hotel & Resort</title>
 
 <script type="text/javascript">
+    // datepicker
+        $(function () {
+                $("#txtngayBD").datepicker({
+                    dateFormat : 'dd-mm-yy',
+                    minDate: 0,
+                    onClose: function (selectedDate) {
+                        if (selectedDate != ""){ 
+                            $("#txtngayKT").datepicker("option", "minDate", selectedDate); }
+                    }
+                });
+                $("#txtngayKT").datepicker({
+                    dateFormat : 'dd-mm-yy',
+                    minDate: 'selectedDate',
+                    
+                });
+        });
+
+
     <!--// Thêm quản lí viết bằng ajax  -->
     $(document).ready(function(){
         $("#saveTT2").click(function(){
@@ -350,8 +372,6 @@
 
 
 
-    <!-- jQuery -->
-    <script src="{{ asset('public/js/jquery.js') }}"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
     <script>
@@ -362,26 +382,6 @@
     </script>    
     <!-- fileinput plugins -->
     <script src="{{ asset('public/js/fileinput.js') }}"></script>
-
-    <!--  datepicker -->
-    <script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>
-    <script>
-        //ckeditor
-      //  CKEDITOR.replace( 'editor1' );
-        // datepicker
-        $(function () {
-          $("#datepicker1").datepicker({ 
-                autoclose: true, 
-                todayHighlight: true,
-          }).datepicker(); //'update', new Date()
-        });
-        $(function () {
-          $("#datepicker2").datepicker({ 
-                autoclose: true, 
-                todayHighlight: true
-          }).datepicker();
-        });
-    </script>      
    
     
 </body>

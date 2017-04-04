@@ -33,7 +33,7 @@
                         $("#ero15").html(html15);
                     }else{
                         $("#myModal").modal('hide');
-                        alert('Thành công');
+                        alert('Thêm thành công');
                         location.reload(true);
                     }
                 }

@@ -16,7 +16,7 @@ class qlPhongController extends Controller
     	//echo '<pre>';
     	//print_r($dslp);
     	$phong = DB::table('phong')->paginate(10);
-    	$rowphong = count($phong);
+    	$rowphong = DB::table('phong')->count('maphong');
 
     	return view('quanli.qlphong')->with('lp',$dslp)->with('phong',$phong)->with('row',$rowphong);
     }

@@ -250,17 +250,21 @@ class xoaAjax extends Controller
                   SAU ĐÓ CHỌN RA PHÒNG TRỐNG THEO NGÀY THÁNG ĐỂ THÊM VÔ
                 */
                     
-                $flag = 0;
                 $kq = 0;
                 foreach ($ds_maphong as $key => $val1) {
+                    $flag = 1;
                     //Lấy danh sách mã phòng trong bảng chi tiết đặt phòng
                     $maphong_datphong = DB::table('chitiet_datphong')->where('maphong',$val1->maphong)->get();  
                     foreach ($maphong_datphong as $key => $val2) {
-                        //Không trùng
-                        if((date('d-m-Y',strtotime($ngayden)) > date('d-m-Y',strtotime($val2->ngaydi))) || (date('d-m-Y',strtotime($ngaydi)) < date('d-m-Y',strtotime($val2->ngayden)))){
-                            $flag =1;
-                            $kq = 1;
-                            //Thêm dữ liệu vào bảng chi tiết đặt phòng
+                        //Trùng
+                        if(!(date('d-m-Y',strtotime($ngayden)) > date('d-m-Y',strtotime($val2->ngaydi))) || (date('d-m-Y',strtotime($ngaydi)) < date('d-m-Y',strtotime($val2->ngayden)))){
+                            $flag =0;                            
+                            break;
+                        }
+                    }
+                   if($flag ==1 ) 
+                        $kq = 1;
+                        //Thêm dữ liệu vào bảng chi tiết đặt phòng
                             $ctDatPhong = new chitietdatphong();
                             $ctDatPhong->mact = $mact;
                             $ctDatPhong->ngaydat = $ngaydat;
@@ -287,10 +291,6 @@ class xoaAjax extends Controller
                             $_SESSION['makh'] = $makh;
                             $_SESSION['mact'] = $mact;
                             return Response::json(['success'=>true]);
-                            break;
-                        }
-                    }
-                   if($flag ==1 ) 
                     break;
                 }
                 //Nếu xét hết tất cả các phòng không thỏa đk thì hết phòng loại đó

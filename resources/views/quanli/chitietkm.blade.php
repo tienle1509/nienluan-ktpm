@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-lg-6">
+                    <div class="form-group col-lg-5">
                         <label>Tiêu Đề</label>
                         <input type="text" class="form-control" placeholder="Nhập tiêu đề" value="{{$km->tenkm}}" name="txtTieuDe">
                         <p style='color:red; margin-left: 15px'>{{$errors->first('txtTieuDe')}}</p>
@@ -69,10 +69,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-lg-4">
+                    <div class="form-group col-lg-3">
                         <label>Ngày Bắt Đầu</label>
-                        <div id="datepicker1" class="input-group date" data-date-format="dd-mm-yyyy">              
-                            <input class="form-control" type="text" readonly="" value="<?php echo date('d-m-Y',strtotime($km->ngaybd)) ?>" name="txtNgayBD">
+                        <div class="input-group date">              
+                            <input id="txtngayBD" class="form-control" type="text" readonly="" value="<?php echo date('d-m-Y',strtotime($km->ngaybd)) ?>" name="txtNgayBD">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> 
                         </div>
                         <p style='color:red; margin-left: 15px'>{{$errors->first('txtNgayBD')}}</p>
@@ -80,10 +80,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-lg-4">
+                    <div class="form-group col-lg-3">
                         <label>Ngày Kết Thúc</label>
-                        <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">              
-                            <input class="form-control" type="text" readonly="" value="<?php echo date('d-m-Y',strtotime($km->ngaykt)) ?>" name="txtNgayKT"/>
+                        <div class="input-group date">              
+                            <input id="txtngayKT" class="form-control" type="text" readonly="" value="<?php echo date('d-m-Y',strtotime($km->ngaykt)) ?>" name="txtNgayKT"/>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> 
                         </div>
                         <p style='color:red; margin-left: 15px'>{{$errors->first('txtNgayKT')}}</p>

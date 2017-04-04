@@ -28,9 +28,10 @@ class khuyenMaiRequest extends FormRequest
             'txtngayBD'=>'required',
             'txtngayKT'=>'required|after:txtngayBD',  //ngày kết thúc phải sau ngày bắt đầu
             'txtChietKhau'=>'required|numeric',
+            'txtMoTa'=>'required',
             'txtNoiDung'=>'required',
             'txtLoaiPhong'=>'required',
-            //'imgKM'=>'required|image'
+            'imgKM'=>'required', //|image'
         ];
     }
 
@@ -42,6 +43,7 @@ class khuyenMaiRequest extends FormRequest
             'txtngayKT.after'=>'Ngày kết thúc phải lớn hơn ngày bắt đầu',
             'txtChietKhau.required'=>'Chiết khấu không được trống',
             'txtChietKhau.numeric'=>'Trường này không được nhập kí tự',
+            'txtMoTa.required'=>'Mô tả không được rỗng',
             'txtNoiDung.required'=>'Nội dung không được trống',
             'txtLoaiPhong.required'=>'Chọn ít nhất một loại phòng để áp dụng',
             'imgKM.required'=>'Ảnh khuyến mãi không được trống',
