@@ -11,6 +11,7 @@ use Validator;
 use Carbon\Carbon;
 use App\chitietdatphong;
 use App\khachhang;
+use Auth;
 
 class xoaAjax extends Controller
 {
@@ -163,14 +164,14 @@ class xoaAjax extends Controller
             $v = Validator::make(Request::all(),
                 [
                     'hoten'=>'required',
-                    'sdt'=>'required|max:11',
+                    'sdt'=>'required|between:10,11',
                     'email'=>'required|email',
                     'malp'=>'required'
                 ],
                 [
                     'hoten.required'=>'Họ tên không được trống',
                     'sdt.required'=>'Số điện thoại không được trống',
-                    'sdt.max'=>'Số điện thoại không đúng',
+                    'sdt.between'=>'Số điện thoại không đúng',
                     'email.required'=>'Email không được rỗng',
                     'email.email'=>'Email không đúng định dạng',
                     'malp.required'=>'Loại phòng không được rỗng'
@@ -237,9 +238,11 @@ class xoaAjax extends Controller
                         $kh->sdt = $sdt;
                         $kh->save();
 
+                        session_start();
+                        $_SESSION['makh'] = $makh;
+                        $_SESSION['mact'] = $mact;
                         return Response::json(['success'=>true]);
-
-                        break;
+                        break; 
                     }
                 }
             }else{           
@@ -280,6 +283,9 @@ class xoaAjax extends Controller
                             $kh->sdt = $sdt;
                             $kh->save();
 
+                            session_start();
+                            $_SESSION['makh'] = $makh;
+                            $_SESSION['mact'] = $mact;
                             return Response::json(['success'=>true]);
                             break;
                         }
@@ -295,6 +301,55 @@ class xoaAjax extends Controller
             
     }
 
+    //XÓA ĐẶT PHÒNG BÊN QUẢN LÍ
+    public function xoaDatPhong(Request $request){
+        if(Request::ajax()){
+            $mact = Request::get('mact');
 
+            $tenkh = DB::table('chitiet_datphong')
+                    ->join('khach_hang','khach_hang.makh','=','chitiet_datphong.makh')
+                    ->select('khach_hang.tenkh')->where('mact',$mact)->first();
+
+            //Xóa trong bảng khách hàng
+            DB::table('khach_hang')
+                    ->join('chitiet_datphong','chitiet_datphong.makh','=','khach_hang.makh')
+                    ->where('mact',$mact)
+                    ->delete();
+            //Xóa trong bảng chi tiết đặt phòng
+            DB::table('chitiet_datphong')->where('mact',$mact)->delete();
+
+            return Response::json(['success'=>true, 'tenkh'=>$tenkh->tenkh]);
+        }
+    }
     
+
+    //XÁC NHẬN ĐẶT PHÒNG BÊN QUẢN LÍ
+    public function luuXacNhanDatPhong(Request $request){
+        if(Request::ajax()){
+            $mact = Request::get('mact');
+            $maql = Auth::user()->maql;
+
+            $tenkh = DB::table('chitiet_datphong')
+                    ->join('khach_hang','khach_hang.makh','=','chitiet_datphong.makh')
+                    ->select('khach_hang.tenkh')->where('mact',$mact)->first();
+
+            //Cập nhật lại trạng thái cột xác nhận của bảng chi tiết đặt phong
+            DB::table('chitiet_datphong')->where('mact',$mact)->update(['xacnhan'=>1, 'maql'=>$maql]);
+
+            return Response::json(['success'=> true, 'tenkh'=>$tenkh->tenkh]);
+        }
+    }
+
+    //CHỈNH SỬA THÔNG TIN ĐẶT PHÒNG BÊN QUẢN LÍ
+    public function chinhSuaDatPhong(Request $request){
+        if(Request::ajax()){
+            $mact = Request::get('mact');
+
+            session_start();
+            //Lấy biến mã chi tiết này truyền qua bên cái chi tiết đặt phòng để lấy dl
+            //QUA QLDATPHONGCONTROLLER
+            $_SESSION['mact'] = $mact;
+            return Response::json(['success'=>true]);
+        }
+    }
 }

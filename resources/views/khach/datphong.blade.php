@@ -88,7 +88,7 @@
         				}
         				if(result.success == true){
         					alert('Đặt phòng thành công !');
-        					location = "http://localhost/nienluan-ktpm/home";
+        					location = "http://localhost/nienluan-ktpm/datphongthanhcong";
         				}
         			}
         		});

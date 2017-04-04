@@ -1,3 +1,6 @@
+<?php 
+	session_start();	
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -82,40 +85,52 @@
 		</div>
 		<p class="text-center">Quý khách vừa hoàn tất đặt phòng tại khách sạn Terracotta Đà Lạt với thông tin như sau:</p>
 		<div class="col-md-6">
+		<?php
+			$makh = $_SESSION['makh'];
+			$mact = $_SESSION['mact'];
+			$tt_khach = DB::table('khach_hang')->where('makh',$makh)->first();
+			$tt_datphong = DB::table('chitiet_datphong')->where('mact',$mact)->first();
+			$loaiphong = DB::table('loai_phong')->where('malp',$tt_datphong->malp)->first();
+			$tenphong = DB::table('phong')->where('maphong',$tt_datphong->maphong)->first();
+		?>
 			<table >
 				<tr>
 					<td>Họ tên người đặt: </td>
-					<td>Trần Văn A</td>
+					<td><?php echo $tt_khach->tenkh; ?></td>
 					
 				</tr>
 				<tr>
 					<td>Email: </td>
-					<td>tranvana@gmail.com</td>
+					<td><?php echo $tt_khach->email; ?></td>
 				</tr>
 				<tr>
 					<td>Số điện thoại: </td>
-					<td>0983 833 833</td>
+					<td><?php echo $tt_khach->sdt; ?></td>
 				</tr>
 				<tr>
 					<td>Loại phòng: </td>
-					<td>Premium.</td>
+					<td><?php echo $loaiphong->tenlp; ?></td>
 				</tr>
 			</table>
 		</div>
 		<div class="col-md-6">
 			<table >
 				<tr>
+					<td>Phòng: </td>
+					<td><?php echo $tenphong->tenphong; ?></td>
+				</tr>
+				<tr>
 					<td>Ngày nhận phòng: </td>
-					<td>14/4/2017.</td>
+					<td><?php echo date('d-m-Y',strtotime($tt_datphong->ngayden)); ?></td>
 					
 				</tr>
 				<tr>
 					<td>Ngày trả phòng: </td>
-					<td>17/4/2017.</td>
+					<td><?php echo date('d-m-Y',strtotime($tt_datphong->ngaydi)); ?></td>
 				</tr>
 				<tr>
 					<td>Số lượng khách: </td>
-					<td>1 người lớn và 1 trẻ.</td>
+					<td><?php echo $tt_datphong->songuoilon.' người lớn và '.$tt_datphong->sotreem.' trẻ em'; ?></td>
 				</tr>
 				
 			</table>

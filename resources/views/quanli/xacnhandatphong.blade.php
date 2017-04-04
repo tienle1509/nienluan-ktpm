@@ -3,6 +3,54 @@
 @section('active_qldap','active')
 
 @section('noidung')
+
+<script type="text/javascript">
+    //Bắt sự kiện khi bấm button Xóa
+    $(document).ready(function(){
+        $(".btnXoa").click(function(){
+            var url = 'http://localhost/nienluan-ktpm/quanli/xoadatphong';
+            var mact = $(this).closest('tr').find('td:first').text();
+            //alert(mact);
+
+            $.ajax({
+                url : url,
+                type : "GET",
+                dataType : "JSON",
+                data : {'mact':mact},
+                success : function(result){
+                    if(result.success){
+                        alert('Đã xóa lượt đặt phòng của khách hàng : ' + result.tenkh);
+                        location = "http://localhost/nienluan-ktpm/quanli/qldatphong/xacnhan";
+                    }
+                }
+            });
+        });
+    });
+
+    //Bắt sự kiện khi bấm button Xác nhận
+    $(document).ready(function(){
+        $(".btnXacNhan").click(function(){
+            var url = 'http://localhost/nienluan-ktpm/quanli/luuxacnhandatphong';
+            var mact = $(this).closest('tr').find('td:first').text();
+            //alert(mact);
+
+            $.ajax({
+                url : url,
+                type : "GET",
+                dataType : "JSON",
+                data : {'mact':mact},
+                success : function(result){
+                    if(result.success){
+                        alert('Đã xác nhận lượt đặt phòng của khách hàng : ' + result.tenkh);
+                        location = "http://localhost/nienluan-ktpm/quanli/qldatphong/xacnhan";
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
 <div class="container-fluid">
                 <!-- Page Heading -->
                 <div class="row">
@@ -12,7 +60,7 @@
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <a href="booking.htm"><i class="fa fa-calendar"></i> Quản Lí Đặt Phòng</a>
+                                <a href="{{ asset('quanli/qldatphong') }}"><i class="fa fa-calendar"></i> Quản Lí Đặt Phòng</a>
                             </li>
                             <li class="active">
                                 <i class="fa fa-calendar"></i> Xác Nhận Đặt Phòng
@@ -30,54 +78,58 @@
                             <thead>
                                 <tr >
                                     <th>Mã ĐP</th>
-                                    <th>Tên Khách Hàng</th>
-                                    <th>SĐT</th>
-                                    <th>Số Ng.Lớn</th>
-                                    <th>Số Trẻ Em</th>
-                                    <th>Loại Phòng</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>SDT</th>
+                                    <th>Loại phòng</th>
+                                    <th>Phòng</th>
                                     <th>Ngày đặt</th>
                                     <th>Ngày nhận</th>
                                     <th>Ngày trả</th>
                                     <th>Xác nhận</th>
-                                    <th  class="text-center">Thao Tác</th>
+                                    <th  class="text-center">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>001</td>
-                                    <td>Nguyễn Văn Tài</td>
-                                    <td>01230001112</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>Deluxe</td>
-                                    <td>01/03/2017</td>
-                                    <td>05/03/2017</td>
-                                    <td>07/03/2017</td>
-                                    <td><i class="fa fa-close" style="color:red"></i></td>
-                                    <td>
-                                        <button class="btn btn-success">Xác nhận</button>
-                                        <button class="btn btn-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>004</td>
-                                    <td>Trần Thanh Tuyết</td>
-                                    <td>01230007777</td>
-                                    <td>4</td>
-                                    <td>2</td>
-                                    <td>Standard</td>
-                                    <td>01/03/2017</td>
-                                    <td>05/03/2017</td>
-                                    <td>07/03/2017</td>
-                                    <td><i class="fa fa-close" style="color:red"></i></td>
-                                    <td>
-                                        <button class="btn btn-success">Xác nhận</button>
-                                        <button class="btn btn-danger">Xóa</button>
-                                    </td>
-                                </tr>
+                                @if($num_chuaxacnhan == 0)
+                                    <tr>
+                                        <td align="center" colspan="10" style="color: red"><h4>Không có lượt đặt phòng mới !</h4></td>
+                                    </tr>
+                                @else
+                                    @foreach($ds_datphongmoi as $key => $val)
+                                        <tr>
+                                            <td>{{ $val->mact }}</td>
+                                            <td>{{ $val->tenkh }}</td>
+                                            <td>{{ $val->sdt }}</td>
+                                            <td>
+                                                <?php
+                                                    $tenlp = DB::table('loai_phong')->where('malp',$val->malp)->first();
+                                                    echo $tenlp->tenlp;
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                    $tenphong = DB::table('phong')->where('maphong',$val->maphong)->first();
+                                                    echo $tenphong->tenphong;
+                                                ?>
+                                            </td>
+                                            <td>{{ date('d-m-Y',strtotime($val->ngaydat)) }}</td>
+                                            <td>{{ date('d-m-Y',strtotime($val->ngayden)) }}</td>
+                                            <td>{{ date('d-m-Y',strtotime($val->ngaydi)) }}</td>
+                                            <td><i class="fa fa-close" style="color:red"></i></td>
+                                            <td>
+                                                <button class="btn btn-success btnXacNhan">Xác nhận</button>
+                                                <button class="btn btn-danger btnXoa">Xóa</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
-
-
+                            <tfoot>
+                                <tr>
+                                    <td align="center" colspan="10">{!! $ds_datphongmoi->render() !!}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
     </div>

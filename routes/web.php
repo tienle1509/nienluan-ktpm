@@ -64,10 +64,11 @@ Route::get('junior',function(){
 
 //ĐẶT PHÒNG
 Route::post('datphong',['uses'=>'datPhongController@datPhong']);
+//Lưu đặt phòng
 Route::get('datphong',['uses'=>'xoaAjax@luuDatPhong']);
 //Thay đổi panel loại phòng khi bấm button
 Route::get('doipanel',['uses'=>'xoaAjax@doiPanel']);
-
+//Đặt phòng thành công
 Route::get('datphongthanhcong',function(){
 	return view('khach.datphongthanhcong');
 });
@@ -83,8 +84,16 @@ Route::group(['prefix'=>'quanli', 'middleware'=>'auth'],function(){
 
 	//Quản lí đặt phòng
 	Route::get('qldatphong',['uses'=>'qlDatPhongController@qldatphong']);
+	//Xóa lượt đặt phòng
+	Route::get('xoadatphong',['uses'=>'xoaAjax@xoaDatPhong']);
+	//Xác nhận đặt phòng
+	Route::get('luuxacnhandatphong',['uses'=>'xoaAjax@luuXacNhanDatPhong']);
+	//Chỉnh sửa thông tin đặt phòng
+	Route::get('chinhsuadatphong',['uses'=>'xoaAjax@chinhSuaDatPhong']);
+
 	Route::group(['prefix'=>'qldatphong'],function(){
 		Route::get('xacnhan',['uses'=>'qlDatPhongController@xacNhan']);
+		Route::get('chitietdatphong',['uses'=>'qlDatPhongController@chiTietDatPhong']);
 	});
 
 	//Quản lí phòng
@@ -131,7 +140,15 @@ Route::get('dangxuat',['uses'=>'Auth\LoginController@getDangXuat']);
 
 
 
-//CÁC VÍ DỤ
+//CÁC VÍ DỤ MINH HỌA
+Route::get('kt', function(){
+	$ds = DB::table('chitiet_datphong')->join('khach_hang','khach_hang.makh','=','chitiet_datphong.makh')->get();
+	$row = count($ds);
+	echo $row;
+	echo '<pre>';
+	print_r($ds);
+});
+
 Route::get('sd',function(){
 	$a = '2-4-2017';
 	echo 'Ngày hôm nay : '.$a.'<br>';

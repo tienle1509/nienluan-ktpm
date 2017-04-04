@@ -35,7 +35,7 @@
                     }else{
                         alert('Cập nhật thành công phòng');
                         //Chuyển hướng về trang 
-                        location = "http://localhost/nienluan-ktpm/quanli/qlphong";
+                        location = "http://localhost/nienluan-ktpm/quanli/qlphong/capnhatttphong";
                     }
                 }
             });  
