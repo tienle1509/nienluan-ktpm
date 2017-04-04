@@ -257,7 +257,7 @@ class xoaAjax extends Controller
                     $maphong_datphong = DB::table('chitiet_datphong')->where('maphong',$val1->maphong)->get();  
                     foreach ($maphong_datphong as $key => $val2) {
                         //Trùng
-                        if(!(date('d-m-Y',strtotime($ngayden)) > date('d-m-Y',strtotime($val2->ngaydi))) || (date('d-m-Y',strtotime($ngaydi)) < date('d-m-Y',strtotime($val2->ngayden)))){
+                        if(!((date('d-m-Y',strtotime($ngayden)) > date('d-m-Y',strtotime($val2->ngaydi))) || (date('d-m-Y',strtotime($ngaydi)) < date('d-m-Y',strtotime($val2->ngayden))))){
                             $flag =0;                            
                             break;
                         }
