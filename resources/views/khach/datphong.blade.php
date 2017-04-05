@@ -258,12 +258,15 @@
 				<label>Người lớn</label>
 				<select name="cboNgLon" id="cboNgLon" class="form-control" style="width: 80px">
 					<?php
-						$arr_val = array(1,2,3);
+						$arr_val = array(1,2,3,4,5,6);
 						$arr_nglon = array($nguoilon);
 						if($nguoilon == 0){
 							echo '<option value="1" selected>1</option>'
 								.'<option value="2">2</option>'
-								.'<option value="3">3</option>';
+								.'<option value="3">3</option>'
+								.'<option value="4">4</option>'
+								.'<option value="5">5</option>'
+								.'<option value="6">6</option>';
 						}else{
 							foreach ($arr_val as $val) {
 								$selected = in_array($val, $arr_nglon) ? 'selected' : '';
@@ -278,7 +281,7 @@
 				<label>Trẻ em</label>
 				<select name="cboTrEm" id="cboTrEm" class="form-control" style="width: 80px">
 					<?php
-						$arr_val = array(0,1,2,3);
+						$arr_val = array(0,1,2,3,4,5,6);
 						$arr_trem = array($treem);
 						foreach ($arr_val as $val) {
 							$selected = in_array($val, $arr_trem) ? 'selected' : '';
